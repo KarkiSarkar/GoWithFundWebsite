@@ -123,9 +123,9 @@ strong{
 }
 
 .tab-description > p , .wpneo-single-short-description > div > p{
-    text-align: block; /* Grow, shrink, use auto width */
+    text-align: justify; /* Grow, shrink, use auto width */
 }
 
 .wpneo-list-details .campaign-top .campaign-single-left .woocommerce-product-gallery__trigger:after{
-    display: none;
+    /*display: none;*/
 }
