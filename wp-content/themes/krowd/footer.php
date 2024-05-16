@@ -64,12 +64,13 @@
 	      </filter>
 	    </defs>
 	</svg>
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-SD439H8S1T"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZCYSLL5K1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-SD439H8S1T');
+  gtag('config', 'G-0ZCYSLL5K1');
 </script>
 <?php wp_footer(); ?>
 </body>
