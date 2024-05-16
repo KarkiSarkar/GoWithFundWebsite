@@ -205,7 +205,7 @@ if(!function_exists('krowd_post_nav')){
       }
 
       ?>
-      <nav class="navigation hidden post-navigation" role="navigation">
+      <nav class="navigation post-navigation" role="navigation">
         
         <div class="nav-links">
           <?php
