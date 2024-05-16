@@ -129,3 +129,9 @@ strong{
 .wpneo-list-details .campaign-top .campaign-single-left .woocommerce-product-gallery__trigger:after{
     /*display: none;*/
 }
+.search-results .post:hover .entry-content .content-inner .read-more a svg {
+    width: 22px;
+    fill: white;
+    position: relative;
+    top: 2px;
+}
