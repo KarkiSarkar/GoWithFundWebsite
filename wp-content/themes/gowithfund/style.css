@@ -146,3 +146,19 @@ strong{
 .post:hover .read-more a > svg{
     fill: white!important;
 }
+
+.comment-form-cookies-consent{
+    display: flex;
+    align-items: flex-start;
+}
+.comment-form-cookies-consent label{
+    padding-left: 10px;
+}
+
+.woocommerce #review_form #respond p {
+    margin: 0 0 30px!important;
+}
+.woocommerce #respond p {
+    font-size: 16px!important;
+    font-weight: 400!important;
+}
