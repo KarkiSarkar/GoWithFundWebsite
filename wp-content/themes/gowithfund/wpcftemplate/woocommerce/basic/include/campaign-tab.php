@@ -24,6 +24,22 @@ defined( 'ABSPATH' ) || exit;
  * @see wpcf_default_single_campaign_tabs()
  */
 $tabs = apply_filters( 'wpcf_default_single_campaign_tabs', array() );
+$tabs['pitch_deck'] = array(
+    'title'     => esc_html__( 'Pitch Deck', 'your-textdomain' ),
+    'callback'  => function() {
+        global $product;
+
+        $pdf_url = get_post_meta( $product->get_id(), 'product_pdf_url', true );
+    
+        $pdf_url = get_field('pitch_deck');
+       
+        if ( $pdf_url ) {
+            echo '<a href="' . esc_url( $pdf_url ) . '" target="_blank">Download PDF</a>';
+        }
+        
+        
+    },
+);
 
 if ( ! empty( $tabs ) ) : ?>
 
