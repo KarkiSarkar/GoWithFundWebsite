@@ -162,3 +162,20 @@ strong{
     font-size: 16px!important;
     font-weight: 400!important;
 }
+
+.pitch_deck_url{
+    padding: 20px;
+    background-color: #00A9A5;
+    color: white;
+    border: 1px solid #00A9A5;
+}
+.pitch_deck_url:hover{
+    padding: 20px;
+    background-color: #ffffff;
+    color: black;
+}
+
+#wpneo-tab-pitch_deck{
+    display: flex;
+    justify-content: center;
+}

@@ -34,7 +34,7 @@ $tabs['pitch_deck_pdf'] = array(
         $pdf_url = get_field('pitch_deck_pdf');
        
         if ( $pdf_url ) {
-            echo '<a href="' . esc_url( $pdf_url ) . '" target="_blank">Download PDF</a>';
+            echo '<a class="pitch_deck_url" href="' . esc_url( $pdf_url ) . '" target="_blank">Download PDF</a>';
         }
         
         
