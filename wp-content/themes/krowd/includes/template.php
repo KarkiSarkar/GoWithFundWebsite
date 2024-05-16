@@ -206,7 +206,7 @@ if(!function_exists('krowd_post_nav')){
 
       ?>
       <nav class="navigation hidden post-navigation" role="navigation">
-        <h1 class="screen-reader-text"><?php esc_html__( 'Post navigation', 'krowd' ); ?></h1>
+        
         <div class="nav-links">
           <?php
           if ( is_attachment() ) :
