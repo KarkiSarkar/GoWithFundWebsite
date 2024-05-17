@@ -24,6 +24,8 @@ defined( 'ABSPATH' ) || exit;
  * @see wpcf_default_single_campaign_tabs()
  */
 $tabs = apply_filters( 'wpcf_default_single_campaign_tabs', array() );
+$pdf_url = get_field('pitch_deck_pdf');
+if(!empty($pdf_url)){
 $tabs['pitch_deck_pdf'] = array(
     'title'     => esc_html__( 'Pitch Deck', 'your-textdomain' ),
     'callback'  => function() {
@@ -31,7 +33,7 @@ $tabs['pitch_deck_pdf'] = array(
 
         $pdf_url = get_post_meta( $product->get_id(), 'product_pdf_url', true );
     
-        $pdf_url = get_field('pitch_deck_pdf');
+        // $pdf_url = get_field('pitch_deck_pdf');
        
         if ( $pdf_url ) {
             echo '<a class="pitch_deck_url" href="' . esc_url( $pdf_url ) . '" target="_blank">Download Pitch Deck Pdf</a>';
@@ -40,6 +42,7 @@ $tabs['pitch_deck_pdf'] = array(
         
     },
 );
+}
 
 if ( ! empty( $tabs ) ) : ?>
 
