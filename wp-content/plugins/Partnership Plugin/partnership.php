@@ -467,27 +467,32 @@ This following statements selects each category individually that contains an in
             }
     
             // Send email to admin
-            $admin_email = 'info@gowithfund.com';
+            $admin_email = 'prabin@nydoz.com';
             $admin_subject = 'New Partnership Request Submission';
-            $admin_message = "Name: $name\n";
-            $admin_message .= "Email: $email\n";
-            $admin_message .= "Country: $country\n";
-            $admin_message .= "Phone Number: $phoneNumber\n";
-            $admin_message .= "Investment Type: $investmentType\n"; // Include selected value
-            $admin_message .= "Message: $message\n";
-            $admin_message .= "Interests: $checkboxes\n";
+            $admin_message = "<html><body>";
+            $admin_message .= "<h2>User Information</h2>";
+            $admin_message .= "<p><strong>Name:</strong> $name</p>";
+            $admin_message .= "<p><strong>Email:</strong> $email</p>";
+            $admin_message .= "<p><strong>Country:</strong> $country</p>";
+            $admin_message .= "<p><strong>Phone Number:</strong> $phoneNumber</p>";
+            $admin_message .= "<p><strong>Investment Type:</strong> $investmentType</p>"; // Include selected value
+            $admin_message .= "<p><strong>Message:</strong><br>$message</p>";
+            $admin_message .= "<p><strong>Interests:</strong> $checkboxes</p>";
             if(!empty($otherText)) {
-                $admin_message .= "Other Interest: $otherText\n";
+                $admin_message .= "<p><strong>Proffession Type:</strong> $otherText</p>";
             }
+            $admin_message .= "</body></html>";
+
+            
             $admin_headers = array(
-                'From: GoWithFund <info@gowithfund.com>',
+                'From: GoWithFund <prabin@nydoz.com>',
                 'Content-Type: text/html; charset=UTF-8'
             );
              wp_mail($admin_email, $admin_subject, $admin_message, $admin_headers, $attachments);
     
             // Send email to client
             $client_headers = array(
-                'From: GoWithFund <info@gowithfund.com>',
+                'From: GoWithFund <prabin@nydoz.com>',
                 'Content-Type: text/html; charset=UTF-8'
             );
             $client_subject = 'Thank you for contacting us';
