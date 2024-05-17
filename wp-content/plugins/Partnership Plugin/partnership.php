@@ -477,9 +477,9 @@ This following statements selects each category individually that contains an in
             $admin_message .= "<p><strong>Phone Number:</strong> $phoneNumber</p>";
             $admin_message .= "<p><strong>Investment Type:</strong> $investmentType</p>"; // Include selected value
             $admin_message .= "<p><strong>Message:</strong><br>$message</p>";
-            $admin_message .= "<p><strong>Interests:</strong> $checkboxes</p>";
+            $admin_message .= "<p><strong>$investmentType:</strong> $checkboxes</p>";
             if(!empty($otherText)) {
-                $admin_message .= "<p><strong>Proffession Type:</strong> $otherText</p>";
+                $admin_message .= "<p><strong>Other Profession Type:</strong> $otherText</p>";
             }
             $admin_message .= "</body></html>";
 
