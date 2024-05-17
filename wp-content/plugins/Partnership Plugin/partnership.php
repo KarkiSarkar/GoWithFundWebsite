@@ -556,6 +556,28 @@ This following statements selects each category individually that contains an in
             if(isset($_POST['other'])) {
                 $otherText = sanitize_text_field($_POST['otherText']);
             }
+
+            $post_data = array(
+                'post_title'    => wp_strip_all_tags($name),
+                'post_content'  => $message,
+                'post_status'   => 'publish',
+                'post_type'     => 'partnership_request',
+            );
+            $post_id = wp_insert_post($post_data);
+        
+            if ($post_id) {
+                update_post_meta($post_id, 'email', $email);
+                update_post_meta($post_id, 'country', $country);
+                update_post_meta($post_id, 'phone_number', $phoneNumber);
+                update_post_meta($post_id, 'investment_type', $investmentType);
+                update_post_meta($post_id, 'checkboxes', $checkboxes);
+                if (!empty($otherText)) {
+                    update_post_meta($post_id, 'other_text', $otherText);
+                }
+                if (!empty($attachments)) {
+                    update_post_meta($post_id, 'attachments', $attachments);
+                }
+            }
     
             // Send email to admin
             $admin_email = 'prabin@nydoz.com';
