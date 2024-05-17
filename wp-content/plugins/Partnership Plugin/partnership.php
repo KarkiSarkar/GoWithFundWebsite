@@ -429,6 +429,97 @@ This following statements selects each category individually that contains an in
     }
     add_shortcode('custom_contact_form', 'custom_contact_form_shortcode');
     
+    function register_partnership_requests_page() {
+        add_menu_page(
+            'Partnership Requests',
+            'Partnership Requests',
+            'manage_options',
+            'partnership-requests',
+            'display_partnership_requests_page',
+            'dashicons-list-view',
+            6
+        );
+    }
+    
+    add_action('admin_menu', 'register_partnership_requests_page');
+    
+
+    function display_partnership_requests_page() {
+        // Query all partnership request posts
+        $args = array(
+            'post_type' => 'partnership_request',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+        );
+    
+        $query = new WP_Query($args);
+        ?>
+        <div class="wrap">
+            <h1 class="wp-heading-inline">Partnership Requests</h1>
+            <table class="widefat fixed" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th id="columnname" class="manage-column column-columnname" scope="col">Name</th>
+                        <th id="columnname" class="manage-column column-columnname" scope="col">Email</th>
+                        <th id="columnname" class="manage-column column-columnname" scope="col">Country</th>
+                        <th id="columnname" class="manage-column column-columnname" scope="col">Phone Number</th>
+                        <th id="columnname" class="manage-column column-columnname" scope="col">Investment Type</th>
+                        <th id="columnname" class="manage-column column-columnname" scope="col">Interests</th>
+                        <th id="columnname" class="manage-column column-columnname" scope="col">Message</th>
+                        <th id="columnname" class="manage-column column-columnname" scope="col">Other Profession Type</th>
+                        <th id="columnname" class="manage-column column-columnname" scope="col">Attachments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($query->have_posts()) {
+                        while ($query->have_posts()) {
+                            $query->the_post();
+                            $email = get_post_meta(get_the_ID(), 'email', true);
+                            $country = get_post_meta(get_the_ID(), 'country', true);
+                            $phone_number = get_post_meta(get_the_ID(), 'phone_number', true);
+                            $investment_type = get_post_meta(get_the_ID(), 'investment_type', true);
+                            $checkboxes = get_post_meta(get_the_ID(), 'checkboxes', true);
+                            $other_text = get_post_meta(get_the_ID(), 'other_text', true);
+                            $attachments = get_post_meta(get_the_ID(), 'attachments', true);
+                            ?>
+                            <tr>
+                                <td><?php the_title(); ?></td>
+                                <td><?php echo esc_html($email); ?></td>
+                                <td><?php echo esc_html($country); ?></td>
+                                <td><?php echo esc_html($phone_number); ?></td>
+                                <td><?php echo esc_html($investment_type); ?></td>
+                                <td><?php echo esc_html($checkboxes); ?></td>
+                                <td><?php the_content(); ?></td>
+                                <td><?php echo esc_html($other_text); ?></td>
+                                <td>
+                                    <?php
+                                    if (!empty($attachments)) {
+                                        foreach ((array)$attachments as $attachment) {
+                                            echo '<a href="' . esc_url(wp_get_attachment_url($attachment)) . '" target="_blank">' . basename($attachment) . '</a><br>';
+                                        }
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <tr>
+                            <td colspan="9">No partnership requests found.</td>
+                        </tr>
+                        <?php
+                    }
+                    wp_reset_postdata();
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <?php
+    }
+
+
     function process_custom_contact_form() {
         if (isset($_POST['submit'])) {
             $name = sanitize_text_field($_POST['name']);
@@ -467,7 +558,7 @@ This following statements selects each category individually that contains an in
             }
     
             // Send email to admin
-            $admin_email = 'info@gowithfund.com';
+            $admin_email = 'prabin@nydoz.com';
             $admin_subject = 'New Partnership Request Submission';
             $admin_message = "<html><body>";
             $admin_message .= "<h2>User Information</h2>";
@@ -485,14 +576,14 @@ This following statements selects each category individually that contains an in
 
             
             $admin_headers = array(
-                'From: GoWithFund <info@gowithfund.com>',
+                'From: GoWithFund <prabin@nydoz.com>',
                 'Content-Type: text/html; charset=UTF-8'
             );
              wp_mail($admin_email, $admin_subject, $admin_message, $admin_headers, $attachments);
     
             // Send email to client
             $client_headers = array(
-                'From: GoWithFund <info@gowithfund.com>',
+                'From: GoWithFund <prabin@nydoz.com>',
                 'Content-Type: text/html; charset=UTF-8'
             );
             $client_subject = 'Thank you for contacting us';
