@@ -528,17 +528,15 @@ This following statements selects each category individually that contains an in
             $phoneNumber = sanitize_text_field($_POST['number']);
             $message = sanitize_text_field($_POST['message']);
             $investmentType = isset($_POST['investmentType']) ? sanitize_text_field($_POST['investmentType']) : '';
-   $attachments = array(); // Initialize attachments array
-        if(isset($_FILES['fileUpload'])) {
-            $file_name = $_FILES['fileUpload']['name'];
-            $file_tmp = $_FILES['fileUpload']['tmp_name'];
-            // Move uploaded file to desired directory
-            move_uploaded_file($file_tmp,"/path/to/directory/" . $file_name);
-            // Include file information in the email or process it as needed
-            $attachments[] = $file_name; // Add file path to attachments array
-        }
-
-       
+            $attachments = array(); // Initialize attachments array
+                if(isset($_FILES['fileUpload'])) {
+                    $file_name = $_FILES['fileUpload']['name'];
+                    $file_tmp = $_FILES['fileUpload']['tmp_name'];
+                    // Move uploaded file to desired directory
+                    move_uploaded_file($file_tmp,"/path/to/directory/" . $file_name);
+                    // Include file information in the email or process it as needed
+                    $attachments[] = $file_name; // Add file path to attachments array
+                }
             // Additional fields for checkboxes
             $checkboxes = "";
             if(isset($_POST['legal'])) $checkboxes .= "Legal, ";
@@ -580,7 +578,7 @@ This following statements selects each category individually that contains an in
             }
     
             // Send email to admin
-            $admin_email = 'prabin@nydoz.com';
+            $admin_email = 'info@gowithfund.com';
             $admin_subject = 'New Partnership Request Submission';
             $admin_message = "<html><body>";
             $admin_message .= "<h2>User Information</h2>";
@@ -598,14 +596,14 @@ This following statements selects each category individually that contains an in
 
             
             $admin_headers = array(
-                'From: GoWithFund <prabin@nydoz.com>',
+                'From: GoWithFund <info@gowithfund.com>',
                 'Content-Type: text/html; charset=UTF-8'
             );
              wp_mail($admin_email, $admin_subject, $admin_message, $admin_headers, $attachments);
     
             // Send email to client
             $client_headers = array(
-                'From: GoWithFund <prabin@nydoz.com>',
+                'From: GoWithFund <info@gowithfund.com>',
                 'Content-Type: text/html; charset=UTF-8'
             );
             $client_subject = 'Thank you for contacting us';
