@@ -578,7 +578,7 @@ This following statements selects each category individually that contains an in
             }
     
             // Send email to admin
-            $admin_email = 'info@gowithfund.com';
+            $admin_email = 'partner@gowithfund.com';
             $admin_subject = 'New Partnership Request Submission';
             $admin_message = "<html><body>";
             $admin_message .= "<h2>User Information</h2>";
@@ -596,14 +596,14 @@ This following statements selects each category individually that contains an in
 
             
             $admin_headers = array(
-                'From: GoWithFund <info@gowithfund.com>',
+                'From: GoWithFund <partner@gowithfund.com>',
                 'Content-Type: text/html; charset=UTF-8'
             );
              wp_mail($admin_email, $admin_subject, $admin_message, $admin_headers, $attachments);
     
             // Send email to client
             $client_headers = array(
-                'From: GoWithFund <info@gowithfund.com>',
+                'From: GoWithFund <partner@gowithfund.com>',
                 'Content-Type: text/html; charset=UTF-8'
             );
             $client_subject = 'Thank you for contacting us';
