@@ -9,7 +9,7 @@ get_header();
 session_start();
 
 // Retrieve the email address from the session variable
-echo $email = isset($_SESSION['submitted_email']) ? $_SESSION['submitted_email'] : '';
+$email = isset($_SESSION['submitted_email']) ? $_SESSION['submitted_email'] : '';
 if(empty($email)){
     wp_redirect(home_url('/become-a-partner'));
     
@@ -56,9 +56,9 @@ get_footer();
         
 <script>
 // JavaScript to redirect to home page when the Thank You page is refreshed
-window.onload = function() {
-    if(performance.navigation.type == 1) {
-        window.location.href = '<?php echo esc_url( home_url( '/become-a-partner' ) ); ?>';
-    }
-}
+// window.onload = function() {
+//     if(performance.navigation.type == 1) {
+//         window.location.href = '<?php //echo esc_url( home_url( '/become-a-partner' ) ); ?>';
+//     }
+// }
 </script>
