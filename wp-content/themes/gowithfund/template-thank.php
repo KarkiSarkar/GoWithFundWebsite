@@ -16,14 +16,14 @@ if(empty($email)){
 }
 else{
     $_SESSION['submitted_email'] = '';
-    unset($_SESSION['submitted_email']);  }
-session_write_close();
-?>
-
+    unset($_SESSION['submitted_email']); ?>
     <script>
         fbq('track', 'Lead');
     </script>
 
+<?php }
+session_write_close();
+?>
 
 <style>
     .buttonhovercss > a{
