@@ -635,6 +635,7 @@ This following statements selects each category individually that contains an in
             'post_type'     => 'partnership_request',
         );
         $post_id = wp_insert_post($post_data);
+        
             if (!is_admin() && !wp_doing_ajax() && isset($_POST['custom_contact_form_submit'])) {
                 wp_redirect(home_url('/become-a-partner/thank-you/'));
                 exit();
