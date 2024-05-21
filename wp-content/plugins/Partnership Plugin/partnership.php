@@ -6,6 +6,28 @@ Version: 1.0
 Author: Nydoz Team
 */
 
+
+function add_facebook_tracking_code() {
+    ?>
+     <script>
+      !function(f,b,e,v,n,t,s)
+       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+       if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+       n.queue=[];t=b.createElement(e);t.async=!0;
+       t.src=v;s=b.getElementsByTagName(e)[0];
+       s.parentNode.insertBefore(t,s)}(window, document,'script',
+       'https://connect.facebook.net/en_US/fbevents.js');
+       fbq('init', '1078378619928035'); 
+       fbq('track', 'PageView');
+     </script>
+     <noscript><img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=1078378619928035&ev=PageView&noscript=1"
+     /></noscript>
+     <?php
+   }
+   add_action('wp_head', 'add_facebook_tracking_code');
+  
 // Enqueue scripts and styles
 function custom_contact_form_scripts() {
     // Enqueue scripts and styles here if needed
@@ -420,7 +442,20 @@ This following statements selects each category individually that contains an in
                 textFieldDiv.style.display = "none";
             }
         }
-        </script>
+        
+        document.getElementById('custom-contact-form').addEventListener('submit', function(event) {
+            var formData = new FormData(this);
+            var data = {};
+            formData.forEach((value, key) => {
+            data[key] = value;
+            });
+
+            // Perform the lead tracking with form data
+            fbq('track', 'Lead', data);
+            // Submit the form after tracking
+            this.submit();
+        });
+    </script>
 
 
 
