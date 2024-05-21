@@ -9,7 +9,7 @@ get_header();
 session_start();
 
 // Retrieve the email address from the session variable
-$email = isset($_SESSION['submitted_email']) ? $_SESSION['submitted_email'] : '';
+echo $email = isset($_SESSION['submitted_email']) ? $_SESSION['submitted_email'] : '';
 if(empty($email)){
     wp_redirect(home_url('/become-a-partner'));
     
