@@ -4,8 +4,8 @@ Template Name: Partner Single Page
 */
 get_header();
 $form = get_field('form_shortcode');
-$description = the_field('description');
-$key_feature = the_field('key_feature');
+$description = get_field('description');
+$key_feature = get_field('key_feature');
 ?>
 <style>
     .page-title{
