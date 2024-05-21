@@ -421,18 +421,18 @@ This following statements selects each category individually that contains an in
             }
         }
         
-        document.getElementById('custom-contact-form').addEventListener('submit', function(event) {
-            var formData = new FormData(this);
-            var data = {};
-            formData.forEach((value, key) => {
-            data[key] = value;
-            });
+        // document.getElementById('custom-contact-form').addEventListener('submit', function(event) {
+        //     var formData = new FormData(this);
+        //     var data = {};
+        //     formData.forEach((value, key) => {
+        //     data[key] = value;
+        //     });
 
-            // Perform the lead tracking with form data
-            fbq('track', 'Lead', data);
-            // Submit the form after tracking
-            this.submit();
-        });
+        //     // Perform the lead tracking with form data
+        //     fbq('track', 'Lead', data);
+        //     // Submit the form after tracking
+        //     this.submit();
+        // });
     </script>
 
 
