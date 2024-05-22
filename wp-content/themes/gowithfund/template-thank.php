@@ -33,7 +33,6 @@ session_write_close();
             background: #00A9A5!important;
     }
 </style>
-<p>name <?php echo $email; ?></p>
 <div id="primary" class="content-area">
     <main id="main" class="site-main">
         <section class="thank-you">
