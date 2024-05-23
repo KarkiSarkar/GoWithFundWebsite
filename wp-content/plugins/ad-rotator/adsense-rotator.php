@@ -92,45 +92,36 @@ function get_rotated_ad_units() {
     $ad_units = array(
         'ad_unit_1' => array(
             'client_id' => 'ca-pub-1174316040160838',
-           
             'name' => 'Sponsered1',
         ),
         'ad_unit_2' => array(
             'client_id' => 'ca-pub-3624662931905437',
-           
             'name' => 'Sponsered2',
-            
         ),
         'ad_unit_3' => array(
             'client_id' => 'ca-pub-7980503800144997',
-           
-            'name' => 'Sponsered3',),
-            
+            'name' => 'Sponsered3',
+        ),
         'ad_unit_4' => array(
             'client_id' => 'ca-pub-3009520522837845',
-            
             'name' => 'Sponsered4',
-            
         ),
         'ad_unit_5' => array(
             'client_id' => 'ca-pub-7166048638772841',
-          
             'name' => 'Sponsered5',
-            
         ),
-         'ad_unit_6' => array(
+         'ad_unit_7' => array(
             'client_id' => 'ca-pub-3912613535459320',
-           
             'name' => 'Sponsered6',
-            
         ),
-        'ad_unit_6' => array(
+        'ad_unit_8' => array(
             'client_id' => 'ca-pub-5799915637075056',
-           
             'name' => 'Sponsered6',
-            
         ),
-        
+        'ad_unit_9' => array(
+            'client_id' => 'ca-pub-5799915637075056',
+            'name' => 'Sponsered6',
+        ),
     );
 
 
