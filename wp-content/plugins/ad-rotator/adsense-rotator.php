@@ -119,7 +119,7 @@ function get_rotated_ad_units() {
             'name' => 'Sponsered6',
         ),
         'ad_unit_9' => array(
-            'client_id' => 'ca-pub-5799915637075056',
+            'client_id' => 'ca-pub-8980638598587695',
             'name' => 'Sponsered6',
         ),
     );
