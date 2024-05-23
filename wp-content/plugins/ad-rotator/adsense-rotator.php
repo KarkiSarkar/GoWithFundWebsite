@@ -84,17 +84,10 @@ function insert_ads_after_paragraph($content) {
 add_filter('the_content', 'insert_ads_after_paragraph');
 
 // Function to insert the AdSense ad shortcode into the header
-function insert_ads_in_header() {
-    $client_id = ''; // Provide a default value if $selected_ad['client_id'] is not set
-    if (isset($selected_ad['client_id'])) {
-        $client_id = esc_attr($selected_ad['client_id']);
-    }
-
-    // Output the <script> tag for Google AdSense asynchronously with the dynamic client ID
-    echo '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' . $client_id . '" crossorigin="anonymous"></script>';
-
-}
-add_action('wp_head', 'insert_ads_in_header');
+// function insert_ads_in_header() {
+//     echo do_shortcode('[rotate_named_adsense_ads]');
+// }
+// add_action('wp_head', 'insert_ads_in_header');
 
 // Shortcode to insert AdSense ad unit
 function rotate_named_adsense_ads_shortcode() {
