@@ -82,13 +82,13 @@ function insert_ads_after_paragraph($content) {
     return $content;
 }
 add_filter('the_content', 'insert_ads_after_paragraph');
-
-// Function to insert the AdSense ad shortcode into the header
-function insert_ads_in_header() {
-    echo '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=client=' . $client_id . '" crossorigin="anonymous"></script>';
+if (!is_user_logged_in()) {
+    // Function to insert the AdSense ad shortcode into the header
+    function insert_ads_in_header() {
+        echo '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=client=' . $client_id . '" crossorigin="anonymous"></script>';
+    }
+    add_action('wp_head', 'insert_ads_in_header');
 }
-add_action('wp_head', 'insert_ads_in_header');
-
 // Shortcode to insert AdSense ad unit
 function rotate_named_adsense_ads_shortcode() {
     ob_start(); // Start output buffering
