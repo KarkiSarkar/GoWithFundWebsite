@@ -324,10 +324,10 @@ function sfs_handle_form_submission() {
         // Example: Send an email
         wp_mail($recipient_email, $email_subject, $email_message, array('Content-Type: text/html; charset=UTF-8', 'From: '. $name. ' <'. $email. '>'), $attachments);
         
-        // Display a thank you message
-        add_action('the_content', function($content) {
-            return '<p>Thank you for your message!</p>'. $content;
-        });
+        if (!is_admin() && !wp_doing_ajax() && isset($_POST['custom_contact_form_submit'])) {
+            wp_redirect(home_url('/become-a-partner/thank-you/'));
+            exit();
+        }
     }
 }
 add_action('wp', 'sfs_handle_form_submission');
