@@ -289,7 +289,7 @@ function sfs_handle_form_submission() {
         $file = isset($_FILES['sfs_file'])? $_FILES['sfs_file'] : null;
         
         // Personal email address for receiving form submissions
-        $recipient_email = $email; // Replace with your personal email
+        $recipient_email = 'partner@gowithfund.com'; // Replace with your personal email
         
         // Construct email subject with page name (if available)
         $email_subject = 'New Partnership Request Form Submission';
