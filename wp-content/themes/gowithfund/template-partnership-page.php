@@ -21,6 +21,7 @@ $key_feature = get_field('key_feature');
         border-radius: 0;
         width: 100%;
     }
+    
 </style>
     <main id="main" class="container-layout-content container">
         <section>
