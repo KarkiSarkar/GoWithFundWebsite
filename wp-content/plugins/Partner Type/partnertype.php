@@ -324,10 +324,10 @@ function sfs_handle_form_submission() {
         // Example: Send an email
         wp_mail($recipient_email, $email_subject, $email_message, array('Content-Type: text/html; charset=UTF-8', 'From: '. $name. ' <'. $email. '>'), $attachments);
         
-        if (!is_admin() && !wp_doing_ajax() && isset($_POST['custom_contact_form_submit'])) {
-            wp_redirect(home_url('/become-a-partner/thank-you/'));
-            exit();
-        }
+        // Display a thank you message
+        add_action('the_content', function($content) {
+            return '<p>Thank you for your message!</p>'. $content;
+        });
     }
 }
 add_action('wp', 'sfs_handle_form_submission');
@@ -353,69 +353,69 @@ add_action('wp', 'sfs_handle_form_submission');
 // }
 // add_action('wp_head', 'add_facebook_sdk');
 
-// use FacebookAds\Api;
-// use FacebookAds\Object\ServerSide\Event;
-// use FacebookAds\Object\ServerSide\EventRequest;
-// use FacebookAds\Object\ServerSide\UserData;
-// use FacebookAds\Object\ServerSide\CustomData;
+use FacebookAds\Api;
+use FacebookAds\Object\ServerSide\Event;
+use FacebookAds\Object\ServerSide\EventRequest;
+use FacebookAds\Object\ServerSide\UserData;
+use FacebookAds\Object\ServerSide\CustomData;
 
-// // Handle form submission
-// function sfs_handle_form_submissions() {
-//     if (isset($_POST['sfs_submit'])) {
-//         // Check if 'sfs_page_name' key is set in $_POST array
-//         $page_name = isset($_POST['sfs_page_name']) ? sanitize_text_field($_POST['sfs_page_name']) : '';
+// Handle form submission
+function sfs_handle_form_submissions() {
+    if (isset($_POST['sfs_submit'])) {
+        // Check if 'sfs_page_name' key is set in $_POST array
+        $page_name = isset($_POST['sfs_page_name']) ? sanitize_text_field($_POST['sfs_page_name']) : '';
 
-//         // Sanitize other form inputs
-//         $name = isset($_POST['sfs_name']) ? sanitize_text_field($_POST['sfs_name']) : '';
-//         $email = isset($_POST['sfs_email']) ? sanitize_email($_POST['sfs_email']) : '';
-//         $message = isset($_POST['sfs_message']) ? sanitize_textarea_field($_POST['sfs_message']) : '';
+        // Sanitize other form inputs
+        $name = isset($_POST['sfs_name']) ? sanitize_text_field($_POST['sfs_name']) : '';
+        $email = isset($_POST['sfs_email']) ? sanitize_email($_POST['sfs_email']) : '';
+        $message = isset($_POST['sfs_message']) ? sanitize_textarea_field($_POST['sfs_message']) : '';
 
-//         // Send data to Facebook Conversion API
-//         send_event_to_facebook($name, $email, $page_name, $message);
-//         $thank_you_page_url = home_url('/become-a-partner/thank-you'); // Replace with your thank you page URL
-//         wp_redirect($thank_you_page_url);
-//     }
-// }
-// add_action('wp', 'sfs_handle_form_submissions');
+        // Send data to Facebook Conversion API
+        send_event_to_facebook($name, $email, $page_name, $message);
+        $thank_you_page_url = home_url('/become-a-partner/thank-you'); // Replace with your thank you page URL
+        wp_redirect($thank_you_page_url);
+    }
+}
+add_action('wp', 'sfs_handle_form_submissions');
 
-// function send_event_to_facebook($name, $email, $page_name, $message) {
-//     // Initialize the Facebook SDK
-//     $access_token = 'EAACoB29AeEoBOxwtPQsgIOmRnNLW34UIadZBvo0isaC48s7jb5ZBP2yWu4secBiwcirJUT286yer8qRlZBaf9lEJPkneGSYnFpWRXpdZAGZAnCNOUYZC39dgeVC8riIChNEUZCYTgVy4tRQXpABY7EqU7APJVZBk5kfyilUalbgP8i5wVp7LhjTpeCQa4MMjYNluZA9iWbDwtAfZBz8ZBXxnM1diO5NY2NBGdq7zWpP1Jo14FQZCRV8hFNwNo1DbpsskbN3kQvQZD'; // Replace with your actual access token
-//     $pixel_id = '484103824186469'; // Replace with your actual Pixel ID
+function send_event_to_facebook($name, $email, $page_name, $message) {
+    // Initialize the Facebook SDK
+    $access_token = 'api_access_token'; // Replace with your actual access token
+    $pixel_id = 'pixel_id'; // Replace with your actual Pixel ID
 
-//     Api::init(null, null, $access_token);
+    Api::init(null, null, $access_token);
 
-//     // Create UserData object
-//     $user_data = (new UserData())
-//         ->setEmails([hash('sha256', $email)]);
+    // Create UserData object
+    $user_data = (new UserData())
+        ->setEmails([hash('sha256', $email)]);
 
-//     // Create CustomData object
-//     $custom_data = (new CustomData())
-//         ->setContentName($page_name)
-//         ->setContentCategory('Form Submission')
-//         ->setContentIds([$message]);
+    // Create CustomData object
+    $custom_data = (new CustomData())
+        ->setContentName($page_name)
+        ->setContentCategory('Form Submission')
+        ->setContentIds([$message]);
 
-//     // Create Event object
-//     $event = (new Event())
-//         ->setEventName('Lead')
-//         ->setEventTime(time())
-//         ->setUserData($user_data)
-//         ->setCustomData($custom_data)
-//         ->setActionSource('website');
+    // Create Event object
+    $event = (new Event())
+        ->setEventName('Lead')
+        ->setEventTime(time())
+        ->setUserData($user_data)
+        ->setCustomData($custom_data)
+        ->setActionSource('website');
 
-//     // Create EventRequest object
-//     $request = (new EventRequest($pixel_id))
-//         ->setEvents([$event]);
+    // Create EventRequest object
+    $request = (new EventRequest($pixel_id))
+        ->setEvents([$event]);
 
-//     // Execute the request
-//     try {
-//         $response = $request->execute();
-//         // Log the response or handle it as needed
-//     } catch (Exception $e) {
-//         // Handle exceptions
-//         error_log('Facebook Conversion API error: ' . $e->getMessage());
-//     }
-// }
+    // Execute the request
+    try {
+        $response = $request->execute();
+        // Log the response or handle it as needed
+    } catch (Exception $e) {
+        // Handle exceptions
+        error_log('Facebook Conversion API error: ' . $e->getMessage());
+    }
+}
 
 
 ?>
