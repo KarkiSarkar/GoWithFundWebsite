@@ -57,7 +57,7 @@ $key_feature = get_field('key_feature');
             <?php  } ?>
             <?php if(!empty($form)){?>
             <div style="background: #00A9A5; width: 60%; padding: 3rem; margin: auto; ">
-                <?php echo do_shortcode($form); ?>
+                <?php echo do_shortcode('[simple_form]'); ?>
             </div>
             <?php  } ?>
 
