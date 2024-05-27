@@ -294,6 +294,11 @@ function custom_contact_form_shortcode() {
                     <input type="checkbox" id="marketing" name="marketing" value="marketing">
                     <span>Marketing</span></label><br>
                 </div>
+                <div class="checkbox-group cat action">
+                    <label class="label-color" for="merchant">
+                    <input type="checkbox" id="merchant" name="merchant" value="merchant">
+                    <span>Merchant Partner</span></label><br>
+                </div>
             
                 <div class="checkbox-group cat action">
                     <label class="label-color" for="other">
