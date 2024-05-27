@@ -563,6 +563,7 @@ This following statements selects each category individually that contains an in
             if(isset($_POST['content'])) $checkboxes .= "Content, ";
             if(isset($_POST['marketing'])) $checkboxes .= "Marketing, ";
             if(isset($_POST['equity'])) $checkboxes .= "Equity, ";
+            if(isset($_POST['merchant'])) $checkboxes .= "Merchant Partner, ";
             if(isset($_POST['debt'])) $checkboxes .= "Debt, ";
              if(isset($_POST['legal_representative'])) $checkboxes .= "Legal Representative, ";
             // Remove trailing comma and space
