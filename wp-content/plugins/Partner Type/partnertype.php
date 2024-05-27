@@ -15,6 +15,7 @@ function sfs_display_form() {
     ob_start();
    ?>
     <form id="simple-form-ui" method="post" action="" enctype="multipart/form-data">
+        <h4>Fill the form for query.</h4>
     <input type="hidden" name="sfs_page_name" value="<?php echo get_the_title();?>">
         <p>
             <label for="sfs_name">Name:</label>
@@ -251,7 +252,7 @@ function sfs_display_form() {
     });
   };
 </script> -->
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
     <script>
          document.getElementById('simple-form-ui').addEventListener('submit', function(event) {
             var formData = new FormData(this);
