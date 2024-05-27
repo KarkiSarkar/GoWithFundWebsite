@@ -112,15 +112,19 @@ function get_rotated_ad_units() {
         ),
          'ad_unit_7' => array(
             'client_id' => 'ca-pub-3912613535459320',
-            'name' => 'Sponsered6',
+            'name' => 'Sponsered7',
         ),
         'ad_unit_8' => array(
             'client_id' => 'ca-pub-5799915637075056',
-            'name' => 'Sponsered6',
+            'name' => 'Sponsered8',
         ),
         'ad_unit_9' => array(
             'client_id' => 'ca-pub-8980638598587695',
-            'name' => 'Sponsered6',
+            'name' => 'Sponsered9',
+        ),
+        'ad_unit_10' => array(
+            'client_id' => 'ca-pub-8321066164841854',
+            'name' => 'Sponsered10',
         ),
     );
 
