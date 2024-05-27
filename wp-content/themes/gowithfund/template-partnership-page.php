@@ -21,6 +21,11 @@ $key_feature = get_field('key_feature');
         border-radius: 0;
         width: 100%;
     }
+    .custom-theme-button {
+        background-color: black !important;
+        width: 94%;
+        margin-left: 15px;
+    }
 
 </style>
     <main id="main" class="container-layout-content container">
