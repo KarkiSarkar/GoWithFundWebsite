@@ -26,7 +26,7 @@ function sfs_display_form() {
             <input type="email" id="sfs_email" name="sfs_email" required>
         </p>
         <p>
-            <label for="sfs_phonenumber">Phonenumber:</label>
+            <label for="sfs_phonenumber">Phone Number:</label>
             <input type="tel" id="sfs_phonenumber" name="sfs_phonenumber" required>
         </p>
         <p>
@@ -292,18 +292,19 @@ function sfs_handle_form_submission() {
         $recipient_email = $email; // Replace with your personal email
         
         // Construct email subject with page name (if available)
-        $email_subject = 'New Contact Form Submission';
+        $email_subject = 'New Partnership Request Form Submission';
         if (!empty($page_name)) {
             $email_subject.= ' from '. $page_name;
         }
         
         // Construct email message
         $email_message = "<html><body>";
-        $email_message.= "<h2>User Request for $page_name</h2>";
+        $email_message.= "<h2>Partnership Request for $page_name</h2>";
         $email_message.= "<p>Name: $name</p>";
         $email_message.= "<p>Email: $email\n</p>";
         $email_message.= "<p>Phonenumber: $phonenumber\n</p>";
         $email_message.= "<p>Country: $country\n</p>";
+        $email_message.= "<p>Type: $page_name</p>";
         $email_message.= "<p>Message:\n$message</p>";
        
         // Handle file upload
