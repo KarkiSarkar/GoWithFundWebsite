@@ -110,14 +110,6 @@ function get_rotated_ad_units() {
             'client_id' => 'ca-pub-7166048638772841',
             'name' => 'Sponsered5',
         ),
-         'ad_unit_7' => array(
-            'client_id' => 'ca-pub-3912613535459320',
-            'name' => 'Sponsered7',
-        ),
-        'ad_unit_8' => array(
-            'client_id' => 'ca-pub-5799915637075056',
-            'name' => 'Sponsered8',
-        ),
         'ad_unit_9' => array(
             'client_id' => 'ca-pub-8980638598587695',
             'name' => 'Sponsered9',
@@ -125,6 +117,10 @@ function get_rotated_ad_units() {
         'ad_unit_10' => array(
             'client_id' => 'ca-pub-8321066164841854',
             'name' => 'Sponsered10',
+        ),
+        'ad_unit_11' => array(
+            'client_id' => 'ca-pub-8230321385956977',
+            'name' => 'Sponsered11',
         ),
     );
 
