@@ -616,7 +616,7 @@ This following statements selects each category individually that contains an in
 
             
             $admin_headers = array(
-                'From: GoWithFund <partner@gowithfund.com>',
+                'From: GoWithFund <'.$email.'>',
                 'Content-Type: text/html; charset=UTF-8'
             );
              wp_mail($admin_email, $admin_subject, $admin_message, $admin_headers, $attachments);
