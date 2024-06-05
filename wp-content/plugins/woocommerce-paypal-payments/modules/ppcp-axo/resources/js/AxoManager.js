@@ -6,7 +6,6 @@ import BillingView from "./Views/BillingView";
 import CardView from "./Views/CardView";
 import PayPalInsights from "./Insights/PayPalInsights";
 import {disable,enable} from "../../../ppcp-button/resources/js/modules/Helper/ButtonDisabler";
-import {getCurrentPaymentMethod} from "../../../ppcp-button/resources/js/modules/Helper/CheckoutMethodState";
 
 class AxoManager {
 
@@ -34,11 +33,7 @@ class AxoManager {
             card: null,
         };
 
-        this.states = this.axoConfig.woocommerce.states;
-
         this.el = new DomElementCollection();
-
-        this.emailInput = document.querySelector(this.el.fieldBillingEmail.selector + ' input');
 
         this.styles = {
             root: {
@@ -50,7 +45,7 @@ class AxoManager {
 
         this.registerEventHandlers();
 
-        this.shippingView = new ShippingView(this.el.shippingAddressContainer.selector, this.el, this.states );
+        this.shippingView = new ShippingView(this.el.shippingAddressContainer.selector, this.el);
         this.billingView = new BillingView(this.el.billingAddressContainer.selector, this.el);
         this.cardView = new CardView(this.el.paymentContainer.selector + '-details', this.el, this);
 
@@ -159,36 +154,6 @@ class AxoManager {
             this.cardView.refresh();
         });
 
-        // Prevents sending checkout form when pressing Enter key on input field
-        // and triggers customer lookup
-        this.$('form.woocommerce-checkout input').on('keydown', async (ev) => {
-            if(ev.key === 'Enter' && getCurrentPaymentMethod() === 'ppcp-axo-gateway' ) {
-                ev.preventDefault();
-                log('Enter key attempt');
-                log('emailInput', this.emailInput.value);
-                log('this.lastEmailCheckedIdentity', this.lastEmailCheckedIdentity);
-                if (this.emailInput && this.lastEmailCheckedIdentity !== this.emailInput.value) {
-                    await this.onChangeEmail();
-                }
-            }
-        });
-
-        // Clear last email checked identity when email field is focused.
-        this.$('#billing_email_field input').on('focus', (ev) => {
-            log('Clear the last email checked:', this.lastEmailCheckedIdentity);
-            this.lastEmailCheckedIdentity = '';
-        });
-
-        // Listening to status update event
-        document.addEventListener('axo_status_updated', (ev) => {
-            const termsField = document.querySelector("[name='terms-field']");
-            if(termsField) {
-                const status = ev.detail;
-                const shouldHide = status.active && status.validEmail === false && status.hasProfile === false;
-
-                termsField.parentElement.style.display = shouldHide ? 'none' : 'block';
-            }
-        });
     }
 
     rerender() {
@@ -257,8 +222,6 @@ class AxoManager {
         }
 
         if (scenario.axoProfileViews) {
-            this.el.billingAddressContainer.hide();
-
             this.shippingView.activate();
             this.billingView.activate();
             this.cardView.activate();
@@ -374,8 +337,6 @@ class AxoManager {
 
         log('Status updated', JSON.parse(JSON.stringify(this.status)));
 
-        document.dispatchEvent(new CustomEvent("axo_status_updated", {detail: this.status}));
-
         this.rerender();
     }
 
@@ -384,10 +345,8 @@ class AxoManager {
         this.initFastlane();
         this.setStatus('active', true);
 
-        log('Attempt on activation');
-        log('emailInput', this.emailInput.value);
-        log('this.lastEmailCheckedIdentity', this.lastEmailCheckedIdentity);
-        if (this.emailInput && this.lastEmailCheckedIdentity !== this.emailInput.value) {
+        const emailInput = document.querySelector(this.el.fieldBillingEmail.selector + ' input');
+        if (emailInput && this.lastEmailCheckedIdentity !== emailInput.value) {
             this.onChangeEmail();
         }
     }
@@ -427,6 +386,7 @@ class AxoManager {
         // Watermark container
         const wc = this.el.watermarkContainer;
         if (!document.querySelector(wc.selector)) {
+            this.emailInput = document.querySelector(this.el.fieldBillingEmail.selector + ' input');
             this.emailInput.insertAdjacentHTML('afterend', `
                 <div class="${wc.className}" id="${wc.id}"></div>
             `);
@@ -437,7 +397,7 @@ class AxoManager {
         if (!document.querySelector(pc.selector)) {
             const gatewayPaymentContainer = document.querySelector('.payment_method_ppcp-axo-gateway');
             gatewayPaymentContainer.insertAdjacentHTML('beforeend', `
-                <div id="${pc.id}" class="${pc.className} axo-hidden">
+                <div id="${pc.id}" class="${pc.className} hidden">
                     <div id="${pc.id}-form" class="${pc.className}-form"></div>
                     <div id="${pc.id}-details" class="${pc.className}-details"></div>
                 </div>
@@ -461,6 +421,7 @@ class AxoManager {
             // Move email to the AXO container.
             let emailRow = document.querySelector(this.el.fieldBillingEmail.selector);
             wrapperElement.prepend(emailRow);
+            emailRow.querySelector('input').focus();
         }
     }
 
@@ -492,9 +453,9 @@ class AxoManager {
         this.el.gatewayRadioButton.trigger('change');
     }
 
-    async renderWatermark(includeAdditionalInfo = true) {
+    async renderWatermark() {
         (await this.fastlane.FastlaneWatermarkComponent({
-            includeAdditionalInfo
+            includeAdditionalInfo: true
         })).render(this.el.watermarkContainer.selector);
     }
 
@@ -505,18 +466,12 @@ class AxoManager {
             // TODO
 
         } else {
+
+            this.emailInput = document.querySelector(this.el.fieldBillingEmail.selector + ' input');
             this.emailInput.addEventListener('change', async ()=> {
-                log('Change event attempt');
-                log('emailInput', this.emailInput.value);
-                log('this.lastEmailCheckedIdentity', this.lastEmailCheckedIdentity);
-                if (this.emailInput && this.lastEmailCheckedIdentity !== this.emailInput.value) {
-                    this.onChangeEmail();
-                }
+                this.onChangeEmail();
             });
 
-            log('Last, this.emailInput.value attempt');
-            log('emailInput', this.emailInput.value);
-            log('this.lastEmailCheckedIdentity', this.lastEmailCheckedIdentity);
             if (this.emailInput.value) {
                 this.onChangeEmail();
             }
@@ -565,10 +520,6 @@ class AxoManager {
             page_type: 'checkout'
         });
 
-        await this.lookupCustomerByEmail();
-    }
-
-    async lookupCustomerByEmail() {
         const lookupResponse = await this.fastlane.identity.lookupCustomerByEmail(this.emailInput.value);
 
         if (lookupResponse.customerContextId) {
@@ -583,25 +534,12 @@ class AxoManager {
             if (authResponse.authenticationState === 'succeeded') {
                 log(JSON.stringify(authResponse));
 
-                const shippingData = authResponse.profileData.shippingAddress;
-                if(shippingData) {
-                    this.setShipping(shippingData);
-                }
-
-                const cardBillingAddress = authResponse.profileData?.card?.paymentSource?.card?.billingAddress;
-                if(cardBillingAddress) {
-                    this.setCard(authResponse.profileData.card);
-
-                    const billingData = {
-                        address: cardBillingAddress,
-                    };
-                    const phoneNumber = authResponse.profileData?.shippingAddress?.phoneNumber?.nationalNumber ?? '';
-                    if(phoneNumber) {
-                        billingData.phoneNumber = phoneNumber
-                    }
-
-                    this.setBilling(billingData);
-                }
+                // Add addresses
+                this.setShipping(authResponse.profileData.shippingAddress);
+                this.setBilling({
+                    address: authResponse.profileData.card.paymentSource.card.billingAddress
+                });
+                this.setCard(authResponse.profileData.card);
 
                 this.setStatus('validEmail', true);
                 this.setStatus('hasProfile', true);
@@ -609,23 +547,11 @@ class AxoManager {
                 this.hideGatewaySelection = true;
                 this.$('.wc_payment_methods label').hide();
 
-                await this.renderWatermark(false);
-
                 this.rerender();
 
             } else {
                 // authentication failed or canceled by the customer
-                // set status as guest customer
                 log("Authentication Failed")
-
-                this.setStatus('validEmail', true);
-                this.setStatus('hasProfile', false);
-
-                await this.renderWatermark(true);
-
-                this.cardComponent = (await this.fastlane.FastlaneCardComponent(
-                    this.cardComponentData()
-                )).render(this.el.paymentContainer.selector + '-form');
             }
 
         } else {
@@ -635,8 +561,6 @@ class AxoManager {
 
             this.setStatus('validEmail', true);
             this.setStatus('hasProfile', false);
-
-            await this.renderWatermark(true);
 
             this.cardComponent = (await this.fastlane.FastlaneCardComponent(
                 this.cardComponentData()
@@ -681,8 +605,6 @@ class AxoManager {
             this.shippingView.toSubmitData(data);
             this.cardView.toSubmitData(data);
 
-            this.ensureBillingPhoneNumber(data);
-
             this.submit(this.data.card.id, data);
 
         } else { // Gary flow
@@ -704,11 +626,8 @@ class AxoManager {
     cardComponentData() {
         return {
             fields: {
-                cardholderName: {
-                    enabled: this.axoConfig.name_on_card === '1'
-                }
-            },
-            styles: this.deleteKeysWithEmptyString(this.axoConfig.style_options)
+                cardholderName: {} // optionally pass this to show the card holder name
+            }
         }
     }
 
@@ -720,8 +639,8 @@ class AxoManager {
             billingAddress: {
                 addressLine1: this.billingView.inputValue('street1'),
                 addressLine2: this.billingView.inputValue('street2'),
-                adminArea1: this.billingView.inputValue('stateCode'),
-                adminArea2: this.billingView.inputValue('city'),
+                adminArea1: this.billingView.inputValue('city'),
+                adminArea2: this.billingView.inputValue('stateCode'),
                 postalCode: this.billingView.inputValue('postCode'),
                 countryCode: this.billingView.inputValue('countryCode'),
             }
@@ -758,9 +677,6 @@ class AxoManager {
             Object.keys(data).forEach((key) => {
                 formData.set(key, data[key]);
             });
-
-            // Set type of user (Ryan) to be received on WC gateway process payment request.
-            formData.set('fastlane_member', true);
 
             fetch(wc_checkout_params.checkout_url, { // TODO: maybe create a new endpoint to process_payment.
                 method: "POST",
@@ -812,34 +728,6 @@ class AxoManager {
         return this.axoConfig?.widgets?.email === 'use_widget';
     }
 
-    deleteKeysWithEmptyString = (obj) => {
-        for(let key of Object.keys(obj)){
-            if (obj[key] === ''){
-                delete obj[key];
-            }
-            else if (typeof obj[key] === 'object'){
-                obj[key] = this.deleteKeysWithEmptyString(obj[key]);
-                if (Object.keys(obj[key]).length === 0 ) delete obj[key];
-            }
-        }
-
-        return Array.isArray(obj) ? obj.filter(val => val) : obj;
-    }
-
-    ensureBillingPhoneNumber(data) {
-        if (data.billing_phone === '') {
-            let phone = '';
-            const cc = this.data?.shipping?.phoneNumber?.countryCode;
-            const number = this.data?.shipping?.phoneNumber?.nationalNumber;
-
-            if (cc) {
-                phone = `+${cc} `;
-            }
-            phone += number;
-
-            data.billing_phone = phone;
-        }
-    }
 }
 
 export default AxoManager;

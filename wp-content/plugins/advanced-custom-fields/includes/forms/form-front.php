@@ -25,6 +25,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function __construct() {
 
 			// vars
@@ -77,6 +78,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function validate_form( $args ) {
 
 			// defaults
@@ -152,6 +154,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function add_form( $args = array() ) {
 
 			// validate
@@ -172,6 +175,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function get_form( $id = '' ) {
 
 			// bail early if not set
@@ -183,9 +187,6 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 			return $this->forms[ $id ];
 		}
 
-		function get_forms() {
-			return $this->forms;
-		}
 
 		/**
 		 * This function will validate fields from the above array
@@ -197,6 +198,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function validate_save_post() {
 
 			// register field if isset in $_POST
@@ -229,6 +231,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function pre_save_post( $post_id, $form ) {
 
 			// vars
@@ -295,6 +298,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function enqueue_form() {
 
 			// check
@@ -315,6 +319,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function check_submit_form() {
 
 			// Verify nonce.
@@ -362,6 +367,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function submit_form( $form ) {
 
 			// filter
@@ -412,6 +418,7 @@ if ( ! class_exists( 'acf_form_front' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function render_form( $args = array() ) {
 
 			// Vars.
@@ -572,10 +579,6 @@ function acf_form( $args = array() ) {
 function acf_get_form( $id = '' ) {
 
 	return acf()->form_front->get_form( $id );
-}
-
-function acf_get_forms() {
-	return acf()->form_front->get_forms();
 }
 
 function acf_register_form( $args ) {

@@ -15,6 +15,7 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function initialize() {
 
 			// vars
@@ -52,6 +53,7 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function input_admin_enqueue_scripts() {
 
 			// localize
@@ -170,6 +172,7 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 		 *
 		 * @param   $field  - an array holding all the field's data
 		 */
+
 		function render_field_settings( $field ) {
 			acf_render_field_setting(
 				$field,
@@ -345,6 +348,7 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 		 *
 		 * @return  $value (mixed) the modified value
 		 */
+
 		function format_value( $value, $post_id, $field ) {
 
 			// bail early if no value
@@ -382,6 +386,7 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 		 * @param   $vars (array)
 		 * @return  $vars
 		 */
+
 		function get_media_item_args( $vars ) {
 
 			$vars['send'] = true;
@@ -402,6 +407,7 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 		 *
 		 * @return  $value - the modified value
 		 */
+
 		function update_value( $value, $post_id, $field ) {
 
 			return acf_get_field_type( 'file' )->update_value( $value, $post_id, $field );

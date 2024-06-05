@@ -270,13 +270,10 @@ class Settings {
 						$sender->send_action( 'jetpack_sync_storage_error_custom_migrate', $data );
 					}
 				} elseif ( $old_value && ! $value ) {
-					if ( ! get_transient( Queue_Storage_Table::CUSTOM_QUEUE_TABLE_DISABLE_WPDB_ERROR_NOT_EXIST_FLAG ) ) {
-						/**
-						 * The custom table has been disabled, migrate what we can from the custom table to the options table unless
-						 * the custom table doesn't exist in the DB.
-						 */
-						Queue_Storage_Table::migrate_from_custom_table_to_options_table();
-					}
+					/**
+					 * The custom table has been disabled, migrate what we can from the custom table to the options table.
+					 */
+					Queue_Storage_Table::migrate_from_custom_table_to_options_table();
 				}
 			}
 

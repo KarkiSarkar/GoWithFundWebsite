@@ -50,7 +50,10 @@ class Force_2FA {
 		$this->role = apply_filters( 'jetpack_force_2fa_cap', 'manage_options' );
 
 		// Bail if Jetpack SSO is not active
-		if ( ! ( new Modules() )->is_active( 'sso' ) ) {
+		if (
+			! class_exists( 'Jetpack' )
+			|| ! ( new Modules() )->is_active( 'sso' )
+		) {
 			add_action( 'admin_notices', array( $this, 'admin_notice' ) );
 			return;
 		}
@@ -72,12 +75,7 @@ class Force_2FA {
 		 * @module SSO
 		 */
 		if ( apply_filters( 'jetpack_force_2fa_dependency_notice', true ) && current_user_can( $this->role ) ) {
-			wp_admin_notice(
-				esc_html__( 'Jetpack Force 2FA requires Jetpack’s SSO feature.', 'jetpack-connection' ),
-				array(
-					'type' => 'warning',
-				)
-			);
+			printf( '<div class="%1$s"><p>%2$s</p></div>', 'notice notice-warning', 'Jetpack Force 2FA requires Jetpack and the Jetpack SSO module.' );
 		}
 	}
 

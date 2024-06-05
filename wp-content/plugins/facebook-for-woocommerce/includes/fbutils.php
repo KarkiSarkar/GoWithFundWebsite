@@ -508,11 +508,10 @@ if ( ! class_exists( 'WC_Facebookcommerce_Utils' ) ) :
 			if ( self::$store_name ) {
 				return self::$store_name;
 			}
-			$apos = "\u{2019}";
 			$name = trim(
 				str_replace(
 					"'",
-					$apos,
+					"\u{2019}",
 					html_entity_decode(
 						get_bloginfo( 'name' ),
 						ENT_QUOTES,

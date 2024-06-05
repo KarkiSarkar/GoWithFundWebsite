@@ -16,8 +16,6 @@ class WC_Payment_Gateway_Stripe_GooglePay extends WC_Payment_Gateway_Stripe {
 
 	use WC_Stripe_Payment_Intent_Trait;
 
-	use WC_Stripe_Express_Payment_Trait;
-
 	protected $payment_method_type = 'card';
 
 	public function __construct() {

@@ -3,10 +3,6 @@ import {loadScript} from "@paypal/paypal-js";
 import {keysToCamelCase} from "../Helper/Utils";
 import widgetBuilder from "./WidgetBuilder";
 import {normalizeStyleForFundingSource} from "../Helper/Style";
-import {
-    handleShippingOptionsChange,
-    handleShippingAddressChange,
-} from "../Helper/ShippingHandler.js";
 
 class Renderer {
     constructor(creditCardRenderer, defaultSettings, onSmartButtonClick, onSmartButtonsInit) {
@@ -68,14 +64,6 @@ class Renderer {
         }
     }
 
-    shouldHandleShippingInPaypal = (venmoButtonClicked) => {
-        if (!this.defaultSettings.should_handle_shipping_in_paypal) {
-            return false;
-        }
-
-        return !venmoButtonClicked || !this.defaultSettings.vaultingEnabled;
-    }
-
     renderButtons(wrapper, style, contextConfig, hasEnabledSeparateGateways, fundingSource = null) {
         if (! document.querySelector(wrapper) || this.isAlreadyRendered(wrapper, fundingSource, hasEnabledSeparateGateways) ) {
             // Try to render registered buttons again in case they were removed from the DOM by an external source.
@@ -87,10 +75,8 @@ class Renderer {
             contextConfig.fundingSource = fundingSource;
         }
 
-        let venmoButtonClicked = false;
-
         const buttonsOptions = () => {
-            const options = {
+            return {
                 style,
                 ...contextConfig,
                 onClick: this.onSmartButtonClick,
@@ -100,16 +86,8 @@ class Renderer {
                     }
                     this.handleOnButtonsInit(wrapper, data, actions);
                 },
-            };
-
-            // Check the condition and add the handler if needed
-            if (this.shouldHandleShippingInPaypal(venmoButtonClicked)) {
-                options.onShippingOptionsChange = (data, actions) => handleShippingOptionsChange(data, actions, this.defaultSettings);
-                options.onShippingAddressChange = (data, actions) => handleShippingAddressChange(data, actions, this.defaultSettings);
             }
-
-            return options;
-        };
+        }
 
         jQuery(document)
             .off(this.reloadEventName, wrapper)

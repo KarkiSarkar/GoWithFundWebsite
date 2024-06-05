@@ -657,7 +657,7 @@ class Installer {
 		$roles = Helper::get_roles();
 		unset( $roles['administrator'], $roles['editor'], $roles['author'] );
 
-		return array_keys( $roles );
+		return $roles;
 	}
 
 	/**

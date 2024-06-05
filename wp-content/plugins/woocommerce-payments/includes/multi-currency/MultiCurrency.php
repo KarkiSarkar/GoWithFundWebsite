@@ -244,7 +244,7 @@ class MultiCurrency {
 
 		$is_frontend_request = ! is_admin() && ! defined( 'DOING_CRON' ) && ! WC()->is_rest_api_request();
 
-		if ( $is_frontend_request || \WC_Payments_Utils::is_store_api_request() ) {
+		if ( $is_frontend_request ) {
 			// Make sure that this runs after the main init function.
 			add_action( 'init', [ $this, 'update_selected_currency_by_url' ], 11 );
 			add_action( 'init', [ $this, 'update_selected_currency_by_geolocation' ], 12 );
@@ -325,13 +325,6 @@ class MultiCurrency {
 	 * @return void
 	 */
 	public function init_rest_api() {
-		// Ensures we are not initializing our REST during `rest_preload_api_request`.
-		// When constructors signature changes, in manual update scenarios we were run into fatals.
-		// Those fatals are not critical, but it causes hickups in release process as catches unnecessary attention.
-		if ( function_exists( 'get_current_screen' ) && get_current_screen() ) {
-			return;
-		}
-
 		$api_controller = new RestController( \WC_Payments::create_api_client() );
 		$api_controller->register_routes();
 	}
@@ -629,7 +622,7 @@ class MultiCurrency {
 	private function initialize_available_currencies() {
 		// Add default store currency with a rate of 1.0.
 		$woocommerce_currency                                = get_woocommerce_currency();
-		$this->available_currencies[ $woocommerce_currency ] = new Currency( $this->localization_service, $woocommerce_currency, 1.0 );
+		$this->available_currencies[ $woocommerce_currency ] = new Currency( $woocommerce_currency, 1.0 );
 
 		$available_currencies = [];
 
@@ -639,7 +632,7 @@ class MultiCurrency {
 		foreach ( $currencies as $currency_code ) {
 			$currency_rate = $cache_data['currencies'][ $currency_code ] ?? 1.0;
 			$update_time   = $cache_data['updated'] ?? null;
-			$new_currency  = new Currency( $this->localization_service, $currency_code, $currency_rate, $update_time );
+			$new_currency  = new Currency( $currency_code, $currency_rate, $update_time );
 
 			// Add this to our list of available currencies.
 			$available_currencies[ $new_currency->get_name() ] = $new_currency;
@@ -732,7 +725,7 @@ class MultiCurrency {
 			$this->init();
 		}
 
-		return $this->default_currency ?? new Currency( $this->localization_service, get_woocommerce_currency() );
+		return $this->default_currency ?? new Currency( get_woocommerce_currency() );
 	}
 
 	/**
@@ -812,17 +805,11 @@ class MultiCurrency {
 		$user_id  = get_current_user_id();
 		$currency = $this->get_enabled_currencies()[ $code ] ?? null;
 
-		if ( null === $currency ) {
-			return;
-		}
-
 		// We discard the cache for the front-end.
 		$this->frontend_currencies->selected_currency_changed();
 
-		// initializing the session (useful for Store API),
-		// so that the selected currency (set as query string parameter) can be correctly set.
-		if ( ! isset( WC()->session ) ) {
-			WC()->initialize_session();
+		if ( null === $currency ) {
+			return;
 		}
 
 		if ( 0 === $user_id && WC()->session ) {
@@ -977,9 +964,7 @@ class MultiCurrency {
 	 * @return void
 	 */
 	public function recalculate_cart() {
-		if ( WC()->cart ) {
-			WC()->cart->calculate_totals();
-		}
+		WC()->cart->calculate_totals();
 	}
 
 	/**

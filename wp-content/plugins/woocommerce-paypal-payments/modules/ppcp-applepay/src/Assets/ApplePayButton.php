@@ -620,18 +620,13 @@ class ApplePayButton implements ButtonInterface {
 	): array {
 
 		$shipping_methods_array = array();
-		/**
-		 * The argument is defined only in docblock.
-		 *
-		 * @psalm-suppress InvalidScalarArgument
-		 */
-		$shipping_methods = WC()->shipping->calculate_shipping(
+		$shipping_methods       = WC()->shipping->calculate_shipping(
 			$this->getShippingPackages(
 				$customer_address,
 				$cart->get_total( 'edit' )
 			)
 		);
-		$done             = false;
+		$done                   = false;
 		foreach ( $shipping_methods[0]['rates'] as $rate ) {
 			$shipping_methods_array[] = array(
 				'label'      => $rate->get_label(),
@@ -1049,9 +1044,17 @@ class ApplePayButton implements ButtonInterface {
 	}
 
 	/**
-	 * Enqueues scripts for admin.
+	 * Enqueues scripts/styles for admin.
 	 */
 	public function enqueue_admin(): void {
+		wp_register_style(
+			'wc-ppcp-applepay-admin',
+			untrailingslashit( $this->module_url ) . '/assets/css/styles.css',
+			array(),
+			$this->version
+		);
+		wp_enqueue_style( 'wc-ppcp-applepay-admin' );
+
 		wp_register_script(
 			'wc-ppcp-applepay-admin',
 			untrailingslashit( $this->module_url ) . '/assets/js/boot-admin.js',
@@ -1066,19 +1069,6 @@ class ApplePayButton implements ButtonInterface {
 			'wc_ppcp_applepay_admin',
 			$this->script_data_for_admin()
 		);
-	}
-
-	/**
-	 * Enqueues styles for admin.
-	 */
-	public function enqueue_admin_styles(): void {
-		wp_register_style(
-			'wc-ppcp-applepay-admin',
-			untrailingslashit( $this->module_url ) . '/assets/css/styles.css',
-			array(),
-			$this->version
-		);
-		wp_enqueue_style( 'wc-ppcp-applepay-admin' );
 	}
 
 	/**

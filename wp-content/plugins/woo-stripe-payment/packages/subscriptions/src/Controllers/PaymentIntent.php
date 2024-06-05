@@ -32,8 +32,6 @@ class PaymentIntent {
 		add_filter( 'wc_stripe_create_payment_method_return_url', [ $this, 'add_change_payment_method_query' ], 10, 3 );
 
 		add_filter( 'wc_stripe_process_redirect_change_payment_method', [ $this, 'process_change_payment_method_redirect' ], 10, 3 );
-
-		add_filter( 'wc_stripe_is_link_active', [ $this, 'is_link_active' ] );
 	}
 
 	private function account_requires_mandate() {
@@ -259,16 +257,6 @@ class PaymentIntent {
 			wp_safe_redirect( $subscription->get_view_order_url() );
 			exit();
 		}
-	}
-
-	public function is_link_active( $bool ) {
-		if ( $bool ) {
-			if ( \WC_Subscriptions_Change_Payment_Gateway::$is_request_to_change_payment ) {
-				$bool = false;
-			}
-		}
-
-		return $bool;
 	}
 
 }

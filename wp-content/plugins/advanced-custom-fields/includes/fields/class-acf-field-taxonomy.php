@@ -42,7 +42,6 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 			add_action( 'wp_ajax_acf/fields/taxonomy/query', array( $this, 'ajax_query' ) );
 			add_action( 'wp_ajax_nopriv_acf/fields/taxonomy/query', array( $this, 'ajax_query' ) );
 			add_action( 'wp_ajax_acf/fields/taxonomy/add_term', array( $this, 'ajax_add_term' ) );
-			add_filter( 'acf/conditional_logic/choices', array( $this, 'render_field_taxonomy_conditional_choices' ), 10, 3 );
 
 			// actions
 			add_action( 'acf/save_post', array( $this, 'save_post' ), 15, 1 );
@@ -59,6 +58,7 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function ajax_query() {
 
 			// validate
@@ -84,36 +84,32 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 		 * @param   $options (array)
 		 * @return  (array)
 		 */
+
 		function get_ajax_query( $options = array() ) {
+
+			// defaults
 			$options = acf_parse_args(
 				$options,
 				array(
 					'post_id'   => 0,
 					's'         => '',
 					'field_key' => '',
-					'term_id'   => '',
-					'include'   => '',
-					'paged'     => 1,
+					'paged'     => 0,
 				)
 			);
 
+			// load field
 			$field = acf_get_field( $options['field_key'] );
 			if ( ! $field ) {
 				return false;
 			}
 
-			// if options include isset, then we are loading a specific term.
-			if ( ! empty( $options['include'] ) ) {
-				$options['term_id'] = $options['include'];
-				// paged should be 1.
-				$options['paged'] = 1;
-			}
-
-			// Bail early if taxonomy does not exist.
+			// bail early if taxonomy does not exist
 			if ( ! taxonomy_exists( $field['taxonomy'] ) ) {
 				return false;
 			}
 
+			// vars
 			$results         = array();
 			$is_hierarchical = is_taxonomy_hierarchical( $field['taxonomy'] );
 			$is_pagination   = ( $options['paged'] > 0 );
@@ -121,12 +117,14 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 			$limit           = 20;
 			$offset          = 20 * ( $options['paged'] - 1 );
 
+			// args
 			$args = array(
 				'taxonomy'   => $field['taxonomy'],
 				'hide_empty' => false,
 			);
 
-			// Don't bother for hierarchial terms, we will need to load all terms anyway.
+			// pagination
+			// - don't bother for hierarchial terms, we will need to load all terms anyway
 			if ( $is_pagination && ! $is_hierarchical ) {
 				$args['number'] = $limit;
 				$args['offset'] = $offset;
@@ -138,57 +136,63 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 				// strip slashes (search may be integer)
 				$s = wp_unslash( strval( $options['s'] ) );
 
-				$args['search'] = isset( $options['term_id'] ) && $options['term_id'] ? '' : $s;
+				// update vars
+				$args['search'] = $s;
 				$is_search      = true;
 			}
 
+			// filters
 			$args = apply_filters( 'acf/fields/taxonomy/query', $args, $field, $options['post_id'] );
 
-			if ( ! empty( $options['include'] ) ) {
-				// Limit search to a specific id if one is provided.
-				$args['include'] = $options['include'];
-			}
-
+			// get terms
 			$terms = acf_get_terms( $args );
 
-			// Sort hierachial.
+			// sort into hierachial order!
 			if ( $is_hierarchical ) {
+
+				// update vars
 				$limit  = acf_maybe_get( $args, 'number', $limit );
 				$offset = acf_maybe_get( $args, 'offset', $offset );
 
+				// get parent
 				$parent = acf_maybe_get( $args, 'parent', 0 );
 				$parent = acf_maybe_get( $args, 'child_of', $parent );
 
-				// This will fail if a search has taken place because parents wont exist.
+				// this will fail if a search has taken place because parents wont exist
 				if ( ! $is_search ) {
+
+					// order terms
 					$ordered_terms = _get_term_children( $parent, $terms, $field['taxonomy'] );
-					// Check for empty array. Possible if parent did not exist within original data.
+
+					// check for empty array (possible if parent did not exist within original data)
 					if ( ! empty( $ordered_terms ) ) {
 						$terms = $ordered_terms;
 					}
 				}
 
-				// Fake pagination.
-				if ( $is_pagination && ! $options['include'] ) {
+				// fake pagination
+				if ( $is_pagination ) {
 					$terms = array_slice( $terms, $offset, $limit );
 				}
 			}
 
-			// Append to r.
+			// append to r
 			foreach ( $terms as $term ) {
 
-				// Add to json.
+				// add to json
 				$results[] = array(
 					'id'   => $term->term_id,
 					'text' => $this->get_term_title( $term, $field, $options['post_id'] ),
 				);
 			}
 
+			// vars
 			$response = array(
 				'results' => $results,
 				'limit'   => $limit,
 			);
 
+			// return
 			return $response;
 		}
 
@@ -234,6 +238,7 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 		 * @param   $value (array)
 		 * @return  $value
 		 */
+
 		function get_terms( $value, $taxonomy = 'category' ) {
 
 			// load terms in 1 query to save multiple DB calls from following code
@@ -273,6 +278,7 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 		 *
 		 * @return  $value - the value to be saved in te database
 		 */
+
 		function load_value( $value, $post_id, $field ) {
 
 			// get valid terms
@@ -424,6 +430,7 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 		 *
 		 * @return  $value (mixed) the modified value
 		 */
+
 		function format_value( $value, $post_id, $field ) {
 
 			// bail early if no value
@@ -460,6 +467,7 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 		 *
 		 * @param   $field - an array holding all the field's data
 		 */
+
 		function render_field( $field ) {
 
 			// force value to array
@@ -473,6 +481,7 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 				'data-taxonomy'   => $field['taxonomy'],
 				'data-allow_null' => $field['allow_null'],
 			);
+
 			// get taxonomy
 			$taxonomy = get_taxonomy( $field['taxonomy'] );
 
@@ -519,6 +528,7 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 		 *
 		 * @param   $field - an array holding all the field's data
 		 */
+
 		function render_field_select( $field ) {
 
 			// Change Field into a select
@@ -724,36 +734,16 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 		}
 
 		/**
-		 * Filters choices in taxonomy conditions.
+		 * description
 		 *
-		 * @since 6.3
+		 * @type    function
+		 * @date    17/04/2015
+		 * @since   5.2.3
 		 *
-		 * @param array  $choices           The selected choice.
-		 * @param array  $conditional_field The conditional field settings object.
-		 * @param string $rule_value        The rule value.
-		 * @return mixed
+		 * @param   $post_id (int)
+		 * @return  $post_id (int)
 		 */
-		public function render_field_taxonomy_conditional_choices( $choices, $conditional_field, $rule_value ) {
-			if ( is_array( $conditional_field ) && $conditional_field['type'] === 'taxonomy' ) {
-				if ( ! empty( $rule_value ) ) {
-					$term    = get_term( $rule_value );
-					$choices = array( $rule_value => $term->name );
-				}
-			}
-			return $choices;
-		}
 
-
-		/**
-		 * ajax_add_term
-		 *
-		 * @since  5.2.3
-		 *
-		 * @type   function
-		 * @date   17/04/2015
-		 *
-		 * @return void
-		 */
 		function ajax_add_term() {
 
 			// verify nonce

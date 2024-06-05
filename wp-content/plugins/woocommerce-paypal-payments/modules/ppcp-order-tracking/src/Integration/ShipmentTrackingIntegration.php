@@ -15,17 +15,13 @@ use WC_Order;
 use WooCommerce\PayPalCommerce\Compat\Integration;
 use WooCommerce\PayPalCommerce\OrderTracking\Endpoint\OrderTrackingEndpoint;
 use WooCommerce\PayPalCommerce\OrderTracking\Shipment\ShipmentFactoryInterface;
-use WooCommerce\PayPalCommerce\WcGateway\Processor\TransactionIdHandlingTrait;
 use WP_REST_Request;
 use WP_REST_Response;
-use function WooCommerce\PayPalCommerce\Api\ppcp_get_paypal_order;
 
 /**
  * Class ShipmentTrackingIntegration.
  */
 class ShipmentTrackingIntegration implements Integration {
-
-	use TransactionIdHandlingTrait;
 
 	/**
 	 * The shipment factory.
@@ -85,18 +81,17 @@ class ShipmentTrackingIntegration implements Integration {
 					return;
 				}
 
-				$paypal_order    = ppcp_get_paypal_order( $wc_order );
-				$capture_id      = $this->get_paypal_order_transaction_id( $paypal_order );
+				$transaction_id  = $wc_order->get_transaction_id();
 				$tracking_number = wc_clean( wp_unslash( $_POST['tracking_number'] ?? '' ) );
 				$carrier         = wc_clean( wp_unslash( $_POST['tracking_provider'] ?? '' ) );
 				$carrier_other   = wc_clean( wp_unslash( $_POST['custom_tracking_provider'] ?? '' ) );
 				$carrier         = $carrier ?: $carrier_other ?: '';
 
-				if ( ! $tracking_number || ! is_string( $tracking_number ) || ! $carrier || ! is_string( $carrier ) || ! $capture_id ) {
+				if ( ! $tracking_number || ! is_string( $tracking_number ) || ! $carrier || ! is_string( $carrier ) || ! $transaction_id ) {
 					return;
 				}
 
-				$this->sync_tracking( $order_id, $capture_id, $tracking_number, $carrier );
+				$this->sync_tracking( $order_id, $transaction_id, $tracking_number, $carrier );
 			}
 		);
 
@@ -121,18 +116,17 @@ class ShipmentTrackingIntegration implements Integration {
 					return $response;
 				}
 
-				$paypal_order    = ppcp_get_paypal_order( $wc_order );
-				$capture_id      = $this->get_paypal_order_transaction_id( $paypal_order );
+				$transaction_id  = $wc_order->get_transaction_id();
 				$tracking_number = $tracking_item['tracking_number'] ?? '';
 				$carrier         = $tracking_item['tracking_provider'] ?? '';
 				$carrier_other   = $tracking_item['custom_tracking_provider'] ?? '';
 				$carrier         = $carrier ?: $carrier_other ?: '';
 
-				if ( ! $tracking_number || ! $carrier || ! $capture_id ) {
+				if ( ! $tracking_number || ! $carrier || ! $transaction_id ) {
 					return $response;
 				}
 
-				$this->sync_tracking( $order_id, $capture_id, $tracking_number, $carrier );
+				$this->sync_tracking( $order_id, $transaction_id, $tracking_number, $carrier );
 
 				return $response;
 			},
@@ -145,21 +139,21 @@ class ShipmentTrackingIntegration implements Integration {
 	 * Syncs (add | update) the PayPal tracking with given info.
 	 *
 	 * @param int    $wc_order_id The WC order ID.
-	 * @param string $capture_id The capture ID.
+	 * @param string $transaction_id The transaction ID.
 	 * @param string $tracking_number The tracking number.
 	 * @param string $carrier The shipment carrier.
 	 * @return void
 	 */
 	protected function sync_tracking(
 		int $wc_order_id,
-		string $capture_id,
+		string $transaction_id,
 		string $tracking_number,
 		string $carrier
 	) {
 		try {
 			$ppcp_shipment = $this->shipment_factory->create_shipment(
 				$wc_order_id,
-				$capture_id,
+				$transaction_id,
 				$tracking_number,
 				'SHIPPED',
 				'OTHER',

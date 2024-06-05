@@ -10,13 +10,13 @@
  *
  * @link              https://hostinger.com
  * @since             1.0.0
- * @package           Hostinger_AI
+ * @package           Hostinger_Ai_Assistant
  *
  * @wordpress-plugin
- * Plugin Name:       Hostinger AI
+ * Plugin Name:       Hostinger AI Assistant
  * Plugin URI:        https://hostinger.com
- * Description:       Hostinger AI plugin.
- * Version:           1.8.3
+ * Description:       Hostinger AI Assistant plugin.
+ * Version:           1.8.1
  * Author:            Hostinger
  * Requires PHP:      8.0
  * Requires at least: 5.0
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Currently plugin version.
  */
 
-define( 'HOSTINGER_AI_ASSISTANT_VERSION', '1.8.3' );
+define( 'HOSTINGER_AI_ASSISTANT_VERSION', '1.8.1' );
 
 /**
  * Plugin path.

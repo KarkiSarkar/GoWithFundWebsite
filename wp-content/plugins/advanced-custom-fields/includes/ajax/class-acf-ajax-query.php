@@ -93,12 +93,6 @@ if ( ! class_exists( 'ACF_Ajax_Query' ) ) :
 				$this->search    = sanitize_text_field( $request['search'] );
 				$this->is_search = true;
 			}
-
-			if ( isset( $request['s'] ) && acf_not_empty( $request['s'] ) ) {
-				$this->search    = sanitize_text_field( $request['s'] );
-				$this->is_search = true;
-			}
-
 			if ( isset( $request['post_id'] ) ) {
 				$this->post_id = $request['post_id'];
 			}
@@ -121,19 +115,18 @@ if ( ! class_exists( 'ACF_Ajax_Query' ) ) :
 			if ( isset( $request['query'] ) ) {
 				return (array) $request['query'];
 			}
-
 			return array();
 		}
 
 		/**
-		 * get_results
+		 * get_items
 		 *
 		 * Returns an array of results for the given args.
 		 *
 		 * @date    31/7/18
 		 * @since   5.7.2
 		 *
-		 * @param   array $args The query args.
+		 * @param   array args The query args.
 		 * @return  array
 		 */
 		function get_results( $args ) {
@@ -141,7 +134,7 @@ if ( ! class_exists( 'ACF_Ajax_Query' ) ) :
 		}
 
 		/**
-		 * get_result
+		 * get_item
 		 *
 		 * Returns a single result for the given item object.
 		 *

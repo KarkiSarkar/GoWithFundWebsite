@@ -289,6 +289,7 @@ class WC_Payments_Account {
 			'paymentsEnabled'       => $account['payments_enabled'],
 			'detailsSubmitted'      => $account['details_submitted'] ?? true,
 			'deposits'              => $account['deposits'] ?? [],
+			'depositsStatus'        => $account['deposits']['status'] ?? $account['deposits_status'] ?? '',
 			'currentDeadline'       => $account['current_deadline'] ?? false,
 			'pastDue'               => $account['has_overdue_requirements'] ?? false,
 			'accountLink'           => $this->get_login_url(),
@@ -524,7 +525,7 @@ class WC_Payments_Account {
 	 *
 	 * @return array Fees.
 	 */
-	public function get_fees(): array {
+	public function get_fees() {
 		$account = $this->get_cached_account_data();
 		return ! empty( $account ) && isset( $account['fees'] ) ? $account['fees'] : [];
 	}
@@ -1891,7 +1892,7 @@ class WC_Payments_Account {
 	 *
 	 * @return string Currency code in lowercase.
 	 */
-	public function get_account_default_currency(): string {
+	public function get_account_default_currency() {
 		$account = $this->get_cached_account_data();
 		return $account['store_currencies']['default'] ?? strtolower( Currency_Code::UNITED_STATES_DOLLAR );
 	}

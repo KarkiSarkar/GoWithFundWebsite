@@ -12,13 +12,6 @@
 use Automattic\Jetpack\Connection\Client;
 use Automattic\Jetpack\Connection\Manager;
 
-/**
- * Disable direct access.
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 if ( ! class_exists( IXR_Client::class ) ) {
 	require_once ABSPATH . WPINC . '/class-IXR.php';
 }

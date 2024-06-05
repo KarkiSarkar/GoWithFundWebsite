@@ -15,6 +15,7 @@ if ( ! class_exists( 'acf_field_oembed' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function initialize() {
 
 			// vars
@@ -50,6 +51,7 @@ if ( ! class_exists( 'acf_field_oembed' ) ) :
 		 * @param   $field (array)
 		 * @return  (int)
 		 */
+
 		function prepare_field( $field ) {
 
 			// defaults
@@ -105,6 +107,7 @@ if ( ! class_exists( 'acf_field_oembed' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function ajax_query() {
 
 			// validate
@@ -130,6 +133,7 @@ if ( ! class_exists( 'acf_field_oembed' ) ) :
 		 * @param   $options (array)
 		 * @return  (array)
 		 */
+
 		function get_ajax_query( $args = array() ) {
 
 			// defaults
@@ -172,6 +176,7 @@ if ( ! class_exists( 'acf_field_oembed' ) ) :
 		 * @since   3.6
 		 * @date    23/01/13
 		 */
+
 		function render_field( $field ) {
 
 			// atts

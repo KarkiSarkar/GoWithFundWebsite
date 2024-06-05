@@ -15,6 +15,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function initialize() {
 
 			// vars
@@ -49,6 +50,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		 * @param   $field (array) the $field being edited
 		 * @return  n/a
 		 */
+
 		function render_field( $field ) {
 
 			// reset vars
@@ -107,6 +109,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function render_field_choices( $field ) {
 
 			// walk
@@ -148,6 +151,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function render_field_toggle( $field ) {
 
 			// vars
@@ -182,6 +186,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function render_field_custom( $field ) {
 
 			// vars
@@ -438,6 +443,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		 *
 		 * @return  $field - the modified field
 		 */
+
 		function update_field( $field ) {
 
 			// Decode choices (convert to array).
@@ -460,6 +466,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		 *
 		 * @return  $value - the modified value
 		 */
+
 		function update_value( $value, $post_id, $field ) {
 
 			// bail early if is empty
@@ -523,6 +530,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		 * @param   $field (array)
 		 * @return  $field
 		 */
+
 		function translate_field( $field ) {
 
 			return acf_get_field_type( 'select' )->translate_field( $field );
@@ -542,6 +550,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		 *
 		 * @return  $value (mixed) the modified value
 		 */
+
 		function format_value( $value, $post_id, $field ) {
 
 			// Bail early if is empty.

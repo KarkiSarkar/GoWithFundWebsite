@@ -66,7 +66,7 @@ class Hostinger_Frontend_Translations {
 			],
 			'error' => [
 				'unavailable' => esc_html__('Sorry, the AI Chatbot is currently unavailable. Please try again later.', 'hostinger-ai-assistant'),
-				'unclear_question' => esc_html__('I\'m sorry, I didn\'t understand your question. Could you please rephrase it or ask something different?', 'hostinger-ai-assistant'),
+				'unclear_question' => esc_html__(`I'm sorry, I didn't understand your question. Could you please rephrase it or ask something different?`, 'hostinger-ai-assistant'),
 			]
 		);
 	}

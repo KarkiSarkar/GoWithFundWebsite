@@ -24,7 +24,7 @@ namespace WooCommerce\PayPalCommerce\OrderTracking\Shipment;
  *     tax_rate?: string
  * }
  * @psalm-type shipmentMap = array{
- *     capture_id: string,
+ *     transaction_id: string,
  *     tracking_number: string,
  *     status: string,
  *     carrier: string,
@@ -35,11 +35,11 @@ namespace WooCommerce\PayPalCommerce\OrderTracking\Shipment;
 interface ShipmentInterface {
 
 	/**
-	 * The capture ID.
+	 * The transaction ID.
 	 *
 	 * @return string
 	 */
-	public function capture_id(): string;
+	public function transaction_id(): string;
 
 	/**
 	 * The tracking number.

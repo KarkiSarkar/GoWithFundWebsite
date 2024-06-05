@@ -24,6 +24,7 @@ if ( ! class_exists( 'acf_form_comment' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function __construct() {
 
 			// actions
@@ -50,6 +51,7 @@ if ( ! class_exists( 'acf_form_comment' ) ) :
 		 * @param   n/a
 		 * @return  (boolean)
 		 */
+
 		function validate_page() {
 
 			// global
@@ -76,6 +78,7 @@ if ( ! class_exists( 'acf_form_comment' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function admin_enqueue_scripts() {
 
 			// validate page
@@ -102,6 +105,7 @@ if ( ! class_exists( 'acf_form_comment' ) ) :
 		 * @param   $comment (object)
 		 * @return  n/a
 		 */
+
 		function edit_comment( $comment ) {
 
 			// vars
@@ -173,6 +177,7 @@ if ( ! class_exists( 'acf_form_comment' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function comment_form_field_comment( $html ) {
 
 			// global
@@ -236,6 +241,7 @@ if ( ! class_exists( 'acf_form_comment' ) ) :
 		 * @param   comment_id (int)
 		 * @return  n/a
 		 */
+
 		function save_comment( $comment_id ) {
 
 			// bail early if not valid nonce
@@ -265,6 +271,7 @@ if ( ! class_exists( 'acf_form_comment' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function admin_footer() {
 
 			?>

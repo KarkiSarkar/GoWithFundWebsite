@@ -17,6 +17,7 @@ if ( ! class_exists( 'acf_field__accordion' ) ) :
 		 * @param  n/a
 		 * @return n/a
 		 */
+
 		function initialize() {
 
 			// vars
@@ -46,6 +47,7 @@ if ( ! class_exists( 'acf_field__accordion' ) ) :
 		 * @param  array $field
 		 * @return n/a
 		 */
+
 		function render_field( $field ) {
 
 			// vars
@@ -120,6 +122,7 @@ if ( ! class_exists( 'acf_field__accordion' ) ) :
 		 *
 		 * @return  $field - the field array holding all the field options
 		 */
+
 		function load_field( $field ) {
 
 			// remove name to avoid caching issue

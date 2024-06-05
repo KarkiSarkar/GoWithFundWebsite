@@ -18,6 +18,7 @@ if ( ! class_exists( 'acf_form_nav_menu' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function __construct() {
 
 			// actions
@@ -43,6 +44,7 @@ if ( ! class_exists( 'acf_form_nav_menu' ) ) :
 		 * @param   N/A
 		 * @return  N/A
 		 */
+
 		function admin_enqueue_scripts() {
 
 			// validate screen
@@ -69,6 +71,7 @@ if ( ! class_exists( 'acf_form_nav_menu' ) ) :
 		 * @param   type $var Description. Default.
 		 * @return  type Description.
 		 */
+
 		function wp_nav_menu_item_custom_fields( $item_id, $item, $depth, $args, $id = '' ) {
 
 			// vars
@@ -133,6 +136,7 @@ if ( ! class_exists( 'acf_form_nav_menu' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function update_nav_menu( $menu_id ) {
 
 			// vars
@@ -164,6 +168,7 @@ if ( ! class_exists( 'acf_form_nav_menu' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function update_nav_menu_items( $menu_id ) {
 
 			// phpcs:disable WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
@@ -193,6 +198,7 @@ if ( ! class_exists( 'acf_form_nav_menu' ) ) :
 		 * @param   type $var Description. Default.
 		 * @return  type Description.
 		 */
+
 		function wp_get_nav_menu_items( $items, $menu, $args ) {
 			acf_set_data( 'nav_menu_id', $menu->term_id );
 			return $items;
@@ -229,6 +235,7 @@ if ( ! class_exists( 'acf_form_nav_menu' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function acf_validate_save_post() {
 
 			// phpcs:disable WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
@@ -259,6 +266,7 @@ if ( ! class_exists( 'acf_form_nav_menu' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function admin_footer() {
 
 			// vars

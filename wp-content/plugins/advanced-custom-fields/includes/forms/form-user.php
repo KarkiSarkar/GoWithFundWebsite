@@ -22,6 +22,7 @@ if ( ! class_exists( 'ACF_Form_User' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function __construct() {
 
 			// enqueue
@@ -54,6 +55,7 @@ if ( ! class_exists( 'ACF_Form_User' ) ) :
 		 * @param   void
 		 * @return  void
 		 */
+
 		function admin_enqueue_scripts() {
 
 			// bail early if not valid screen
@@ -77,6 +79,7 @@ if ( ! class_exists( 'ACF_Form_User' ) ) :
 		 * @param   void
 		 * @return  void
 		 */
+
 		function login_form_register() {
 
 			// customize action prefix so that "admin_head" = "login_head"
@@ -98,6 +101,7 @@ if ( ! class_exists( 'ACF_Form_User' ) ) :
 		 * @param   void
 		 * @return  void
 		 */
+
 		function render_register() {
 
 			// render
@@ -121,6 +125,7 @@ if ( ! class_exists( 'ACF_Form_User' ) ) :
 		 * @param   void
 		 * @return  void
 		 */
+
 		function render_edit( $user ) {
 
 			// add compatibility with front-end user profile edit forms such as bbPress
@@ -149,6 +154,7 @@ if ( ! class_exists( 'ACF_Form_User' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function render_new() {
 
 			// Multisite uses a different 'user-new.php' form. Don't render fields here
@@ -178,6 +184,7 @@ if ( ! class_exists( 'ACF_Form_User' ) ) :
 		 * @param   $el (string)
 		 * @return  n/a
 		 */
+
 		function render( $args = array() ) {
 
 			// Allow $_POST data to persist across form submission attempts.
@@ -261,6 +268,7 @@ if ( ! class_exists( 'ACF_Form_User' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function admin_footer() {
 
 			// script
@@ -293,6 +301,7 @@ if ( ! class_exists( 'ACF_Form_User' ) ) :
 		 * @param   $post_id (int)
 		 * @return  $post_id (int)
 		 */
+
 		function save_user( $user_id ) {
 
 			// verify nonce

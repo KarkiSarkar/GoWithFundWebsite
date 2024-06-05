@@ -30,6 +30,7 @@ class DefaultOptions {
 	private function get_astra_options(): array {
 		return array(
 			'astra_sites_settings'      => 'gutenberg',
+			'st-elementor-builder-flag' => '1',
 		);
 	}
 }

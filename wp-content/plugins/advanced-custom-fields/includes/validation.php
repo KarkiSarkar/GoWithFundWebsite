@@ -19,6 +19,7 @@ if ( ! class_exists( 'acf_validation' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function __construct() {
 
 			// vars
@@ -42,6 +43,7 @@ if ( ! class_exists( 'acf_validation' ) ) :
 		 * @param   $message (string) error message
 		 * @return  $post_id (int)
 		 */
+
 		function add_error( $input, $message ) {
 
 			// add to array
@@ -62,6 +64,7 @@ if ( ! class_exists( 'acf_validation' ) ) :
 		 * @param   $input (string) name attribute of DOM elmenet
 		 * @return  (mixed)
 		 */
+
 		function get_error( $input ) {
 
 			// bail early if no errors
@@ -91,6 +94,7 @@ if ( ! class_exists( 'acf_validation' ) ) :
 		 * @param   n/a
 		 * @return  (array|boolean)
 		 */
+
 		function get_errors() {
 
 			// bail early if no errors
@@ -113,6 +117,7 @@ if ( ! class_exists( 'acf_validation' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function reset_errors() {
 
 			$this->errors = array();
@@ -129,6 +134,7 @@ if ( ! class_exists( 'acf_validation' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function ajax_validate_save_post() {
 
 			// validate

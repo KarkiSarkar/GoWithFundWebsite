@@ -139,7 +139,7 @@ class Block_FAQ extends Block {
 
 			$data['faqs']['mainEntity'][] = [
 				'@type'          => 'Question',
-				'url'            => esc_url( $permalink . $question['id'] ),
+				'url'            => $permalink . $question['id'],
 				'name'           => wp_strip_all_tags( $question['title'] ),
 				'acceptedAnswer' => [
 					'@type' => 'Answer',
@@ -180,7 +180,7 @@ class Block_FAQ extends Block {
 				$question['id'] = 'rm-faq-' . md5( $question['title'] );
 			}
 
-			$out[] = sprintf( '<%1$s id="%2$s" class="rank-math-list-item">', $item_tag, esc_attr( $question['id'] ) );
+			$out[] = sprintf( '<%1$s id="%2$s" class="rank-math-list-item">', $item_tag, $question['id'] );
 
 			$out[] = sprintf(
 				'<%1$s class="rank-math-question %2$s">%3$s</%1$s>',
@@ -206,12 +206,7 @@ class Block_FAQ extends Block {
 		$out[] = sprintf( '</%1$s>', $list_tag );
 		$out[] = '</div>';
 
-		return apply_filters(
-			'rank_math/schema/block/faq/content',
-			wp_kses_post( join( "\n", $out ) ),
-			$out,
-			$attributes
-		);
+		return join( "\n", $out );
 	}
 
 	/**

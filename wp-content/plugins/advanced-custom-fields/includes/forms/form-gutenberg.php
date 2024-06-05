@@ -19,6 +19,7 @@ if ( ! class_exists( 'ACF_Form_Gutenberg' ) ) :
 		 * @param   void
 		 * @return  void
 		 */
+
 		function __construct() {
 
 			// Add actions.

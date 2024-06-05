@@ -18,7 +18,7 @@ class CategoryMessageController extends AbstractBNPLMessageController {
 		$this->supported_gateways = $this->get_supported_gateways();
 		$this->asset_data->add( 'currency', get_woocommerce_currency() );
 		$this->asset_data->add( 'products', [] );
-		$this->asset_data->add( 'excluded_product_types', [ 'external' ] );
+		$this->asset_data->add( 'product_types', [ 'simple', 'variable', 'group' ] );
 	}
 
 	public function end_loop() {

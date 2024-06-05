@@ -12,7 +12,7 @@
 # This file is distributed under the same license as Advanced Custom Fields.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-05-22T11:47:45+00:00\n"
+"PO-Revision-Date: 2024-04-08T08:54:42+00:00\n"
 "Report-Msgid-Bugs-To: http://support.advancedcustomfields.com\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -190,7 +190,7 @@ msgstr "ACF PRO"
 
 #: includes/admin/admin.php:309
 msgid "Feedback"
-msgstr "Зворотній зв’язок"
+msgstr "Зворотний зв'язок"
 
 #: includes/admin/admin.php:307
 msgid "Support"
@@ -320,7 +320,7 @@ msgstr ""
 #: includes/admin/views/acf-field-group/pro-features.php:3
 #: includes/admin/views/options-page-preview.php:29
 msgid "Learn More"
-msgstr "Дізнатись більше"
+msgstr ""
 
 #: includes/admin/views/acf-field-group/pro-features.php:28
 msgid ""
@@ -509,7 +509,7 @@ msgstr ""
 
 #: includes/fields/class-acf-field-url.php:19
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: includes/fields/class-acf-field-true_false.php:25
 msgid ""
@@ -717,7 +717,7 @@ msgstr ""
 
 #: includes/ajax/class-acf-ajax-local-json-diff.php:81
 msgid "Original"
-msgstr "Оригінальний"
+msgstr ""
 
 #: includes/ajax/class-acf-ajax-local-json-diff.php:55
 msgid "Invalid post ID."
@@ -763,7 +763,7 @@ msgstr ""
 
 #: includes/admin/views/browse-fields-modal.php:4
 msgid "Popular"
-msgstr "Популярні"
+msgstr ""
 
 #: includes/admin/views/acf-taxonomy/list-empty.php:15
 msgid "Add Taxonomy"
@@ -1505,7 +1505,7 @@ msgstr ""
 
 #: includes/admin/views/acf-post-type/advanced-settings.php:1110
 msgid "Archive"
-msgstr "Архів"
+msgstr ""
 
 #: includes/admin/views/acf-post-type/advanced-settings.php:1090
 msgid "Pagination support for the items URLs such as the archives."
@@ -1513,7 +1513,7 @@ msgstr ""
 
 #: includes/admin/views/acf-post-type/advanced-settings.php:1089
 msgid "Pagination"
-msgstr "Пагинація"
+msgstr ""
 
 #: includes/admin/views/acf-post-type/advanced-settings.php:1072
 msgid "RSS feed URL for the post type items."
@@ -1989,7 +1989,7 @@ msgstr ""
 
 #: includes/admin/views/acf-post-type/advanced-settings.php:383
 msgid "Featured image"
-msgstr "Головне зображення"
+msgstr ""
 
 #: includes/admin/views/acf-post-type/advanced-settings.php:382
 msgid "In the editor used for the title of the featured image meta box."
@@ -2488,7 +2488,7 @@ msgstr[2] ""
 #: includes/admin/views/acf-taxonomy/basic-settings.php:82
 #: includes/post-types/class-acf-post-type.php:91
 msgid "Post Types"
-msgstr "Типи записів"
+msgstr "Типи публікацій"
 
 #: includes/admin/post-types/admin-post-type.php:158
 #: includes/admin/post-types/admin-taxonomy.php:160
@@ -2511,7 +2511,7 @@ msgstr ""
 #: assets/build/js/acf-internal-post-type.js:176
 #: assets/build/js/acf-internal-post-type.js:250
 msgid "Pages"
-msgstr "Сторінки"
+msgstr "Cторінки"
 
 #: includes/admin/admin-internal-post-type.php:347
 msgid "Link Existing Field Groups"
@@ -2657,7 +2657,7 @@ msgstr ""
 #: includes/acf-internal-post-type-functions.php:534
 #: includes/acf-internal-post-type-functions.php:563
 msgid "Labels"
-msgstr "Мітки"
+msgstr ""
 
 #: includes/admin/post-types/admin-field-group.php:249
 msgid "Field Settings Tabs"
@@ -2675,7 +2675,7 @@ msgid "[ACF shortcode value disabled for preview]"
 msgstr ""
 
 #: includes/admin/admin-internal-post-type.php:290
-#: includes/admin/post-types/admin-field-group.php:539
+#: includes/admin/post-types/admin-field-group.php:538
 msgid "Close Modal"
 msgstr ""
 
@@ -2727,7 +2727,8 @@ msgstr ""
 msgid "Checkbox custom values cannot be empty. Uncheck any empty values."
 msgstr ""
 
-#: includes/admin/views/global/navigation.php:250
+#: pro/admin/admin-updates.php:122,
+#: pro/admin/views/html-settings-updates.php:12
 msgid "Updates"
 msgstr "Оновлення"
 
@@ -2858,7 +2859,7 @@ msgstr "Перевірка"
 #: includes/acf-internal-post-type-functions.php:504
 #: includes/acf-internal-post-type-functions.php:533 includes/fields.php:389
 msgid "General"
-msgstr "Загальні"
+msgstr "Загальне"
 
 #: includes/admin/tools/class-acf-admin-tool-import.php:69
 msgid "Import JSON"
@@ -3360,7 +3361,7 @@ msgstr "Поточна роль користувача"
 #: includes/locations/class-acf-location-page-template.php:73
 #: includes/locations/class-acf-location-post-template.php:85
 msgid "Default Template"
-msgstr "Початковий шаблон"
+msgstr "Стандартний шаблон"
 
 #: includes/locations/class-acf-location-post-template.php:22
 msgid "Post Template"
@@ -3573,7 +3574,7 @@ msgstr "Вгорі (під заголовком)"
 
 #: includes/admin/views/acf-field-group/options.php:101
 msgid "Position"
-msgstr "Розташування"
+msgstr "Положення"
 
 #: includes/admin/views/acf-field-group/options.php:92
 msgid "Seamless (no metabox)"
@@ -3626,7 +3627,7 @@ msgstr "Атрибути обгортки"
 
 #: includes/fields/class-acf-field.php:311
 msgid "Required"
-msgstr "Обов'язково"
+msgstr "Вимагається"
 
 #: includes/admin/views/acf-field-group/field.php:220
 msgid "Instructions for authors. Shown when submitting data"
@@ -3873,7 +3874,7 @@ msgstr "Підтримка"
 #: includes/admin/admin.php:305
 #: includes/admin/views/browse-fields-modal.php:102
 msgid "Documentation"
-msgstr "Документація"
+msgstr "Документатція"
 
 #: includes/admin/post-types/admin-field-groups.php:90
 #: includes/admin/post-types/admin-post-types.php:110
@@ -3930,22 +3931,22 @@ msgstr "Оновити базу даних"
 msgid "Custom Fields"
 msgstr "Додаткові поля"
 
-#: includes/admin/post-types/admin-field-group.php:584
+#: includes/admin/post-types/admin-field-group.php:583
 msgid "Move Field"
 msgstr "Перемістити поле"
 
-#: includes/admin/post-types/admin-field-group.php:573
-#: includes/admin/post-types/admin-field-group.php:577
+#: includes/admin/post-types/admin-field-group.php:572
+#: includes/admin/post-types/admin-field-group.php:576
 msgid "Please select the destination for this field"
 msgstr "Будь ласка, оберіть групу, в яку перемістити"
 
 #. translators: Confirmation message once a field has been moved to a different
 #. field group.
-#: includes/admin/post-types/admin-field-group.php:535
+#: includes/admin/post-types/admin-field-group.php:534
 msgid "The %1$s field can now be found in the %2$s field group"
 msgstr ""
 
-#: includes/admin/post-types/admin-field-group.php:532
+#: includes/admin/post-types/admin-field-group.php:531
 msgid "Move Complete."
 msgstr "Переміщення завершене."
 
@@ -3954,7 +3955,7 @@ msgstr "Переміщення завершене."
 #: includes/admin/views/acf-post-type/advanced-settings.php:78
 #: includes/admin/views/acf-taxonomy/advanced-settings.php:130
 msgid "Active"
-msgstr "Діючий"
+msgstr "Активно"
 
 #: includes/admin/post-types/admin-field-group.php:246
 msgid "Field Keys"
@@ -3966,7 +3967,7 @@ msgstr "Налаштування"
 
 #: includes/admin/post-types/admin-field-groups.php:92
 msgid "Location"
-msgstr "Розміщення"
+msgstr "Розташування"
 
 #: includes/admin/post-types/admin-field-group.php:100
 #: assets/build/js/acf-input.js:983 assets/build/js/acf-input.js:1075
@@ -4126,7 +4127,7 @@ msgstr "Вміст"
 #: includes/admin/views/acf-post-type/advanced-settings.php:21
 #: includes/forms/form-front.php:38
 msgid "Title"
-msgstr "Назва"
+msgstr "Заголовок"
 
 #: includes/assets.php:373 includes/forms/form-comment.php:144
 #: assets/build/js/acf-input.js:7395 assets/build/js/acf-input.js:7984
@@ -4196,24 +4197,24 @@ msgstr "Скасувати"
 msgid "Are you sure?"
 msgstr "Ви впевнені?"
 
-#: includes/assets.php:370 assets/build/js/acf-input.js:9464
-#: assets/build/js/acf-input.js:10331
+#: includes/assets.php:370 assets/build/js/acf-input.js:9458
+#: assets/build/js/acf-input.js:10325
 msgid "%d fields require attention"
 msgstr ""
 
-#: includes/assets.php:369 assets/build/js/acf-input.js:9462
-#: assets/build/js/acf-input.js:10327
+#: includes/assets.php:369 assets/build/js/acf-input.js:9456
+#: assets/build/js/acf-input.js:10321
 msgid "1 field requires attention"
 msgstr "1 поле потребує уваги"
 
 #: includes/assets.php:368 includes/validation.php:253
-#: includes/validation.php:261 assets/build/js/acf-input.js:9457
-#: assets/build/js/acf-input.js:10322
+#: includes/validation.php:261 assets/build/js/acf-input.js:9451
+#: assets/build/js/acf-input.js:10316
 msgid "Validation failed"
 msgstr "Помилка валідації"
 
-#: includes/assets.php:367 assets/build/js/acf-input.js:9625
-#: assets/build/js/acf-input.js:10510
+#: includes/assets.php:367 assets/build/js/acf-input.js:9619
+#: assets/build/js/acf-input.js:10504
 msgid "Validation successful"
 msgstr "Валідація успішна"
 
@@ -4249,8 +4250,8 @@ msgctxt "verb"
 msgid "Edit"
 msgstr "Редагувати"
 
-#: includes/assets.php:364 assets/build/js/acf-input.js:9234
-#: assets/build/js/acf-input.js:10093
+#: includes/assets.php:364 assets/build/js/acf-input.js:9228
+#: assets/build/js/acf-input.js:10087
 msgid "The changes you made will be lost if you navigate away from this page"
 msgstr "Зміни, які ви внесли, буде втрачено, якщо ви перейдете з цієї сторінки"
 
@@ -4373,7 +4374,7 @@ msgstr "Додати"
 #: includes/admin/views/acf-field-group/fields.php:53
 #: includes/fields/class-acf-field-taxonomy.php:843
 msgid "Name"
-msgstr "Ім’я"
+msgstr "Ім'я"
 
 #: includes/fields/class-acf-field-taxonomy.php:828
 msgid "%s added"
@@ -4559,7 +4560,7 @@ msgstr "Редагувати файл"
 #: includes/fields/class-acf-field-file.php:57
 #: assets/build/js/acf-input.js:2445 assets/build/js/acf-input.js:2597
 msgid "Select File"
-msgstr "Виберіть файл"
+msgstr "Оберіть файл"
 
 #: includes/fields/class-acf-field-file.php:23
 msgid "File"
@@ -4693,7 +4694,7 @@ msgstr "Вібрати колір"
 #: assets/build/js/acf-internal-post-type.js:72
 #: assets/build/js/acf-internal-post-type.js:86
 msgid "Default"
-msgstr "Початковий"
+msgstr "За замовчуванням"
 
 #: includes/admin/views/acf-post-type/advanced-settings.php:89
 #: includes/admin/views/acf-taxonomy/advanced-settings.php:141
@@ -5071,7 +5072,7 @@ msgstr[2] "%1$s вимагає принаймні %2$s виділень"
 #: includes/fields/class-acf-field-post_object.php:378
 #: includes/fields/class-acf-field-relationship.php:596
 msgid "Post ID"
-msgstr "ID запису"
+msgstr "ID Запису"
 
 #: includes/fields/class-acf-field-post_object.php:17
 #: includes/fields/class-acf-field-post_object.php:377
@@ -5144,7 +5145,7 @@ msgstr "Фільтр за типом матеріалу"
 
 #: includes/fields/class-acf-field-relationship.php:430
 msgid "Search..."
-msgstr "Пошук…"
+msgstr "Шукати..."
 
 #: includes/fields/class-acf-field-relationship.php:361
 msgid "Select taxonomy"
@@ -5221,7 +5222,7 @@ msgstr "Завантажено до матеріалу"
 #: includes/locations/class-acf-location-user-role.php:78
 #: includes/locations/class-acf-location-widget.php:65
 msgid "All"
-msgstr "Всі"
+msgstr "Все"
 
 #: includes/fields/class-acf-field-file.php:219
 #: includes/fields/class-acf-field-image.php:197
@@ -5272,7 +5273,7 @@ msgstr "Додати зображення"
 
 #: includes/fields/class-acf-field-image.php:157
 msgid "No image selected"
-msgstr "Зображення не вибрано"
+msgstr "Зображення не вибране"
 
 #: includes/assets.php:353 includes/fields/class-acf-field-file.php:155
 #: includes/fields/class-acf-field-image.php:137
@@ -5306,7 +5307,7 @@ msgstr "Редагувати зображення"
 #: includes/fields/class-acf-field-image.php:62
 #: assets/build/js/acf-input.js:3154 assets/build/js/acf-input.js:3373
 msgid "Select Image"
-msgstr "Виберіть зображення"
+msgstr "Обрати зображення"
 
 #: includes/fields/class-acf-field-image.php:23
 msgid "Image"
@@ -5528,7 +5529,7 @@ msgstr "Відцентруйте початкову карту"
 #: includes/fields/class-acf-field-google-map.php:186
 #: includes/fields/class-acf-field-google-map.php:199
 msgid "Center"
-msgstr "По центру"
+msgstr "Центр"
 
 #: includes/fields/class-acf-field-google-map.php:157
 msgid "Search for address..."

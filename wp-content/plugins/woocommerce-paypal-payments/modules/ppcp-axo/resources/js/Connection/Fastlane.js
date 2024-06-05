@@ -18,7 +18,6 @@ class Fastlane {
                     resolve();
                 })
                 .catch((error) => {
-                    console.error(error)
                     reject();
                 });
         });

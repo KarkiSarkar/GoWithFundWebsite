@@ -16,6 +16,7 @@ if ( ! class_exists( 'acf_field_button_group' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function initialize() {
 
 			// vars
@@ -223,6 +224,7 @@ if ( ! class_exists( 'acf_field_button_group' ) ) :
 		 * @param   array $field The field array holding all the field options
 		 * @return  $field
 		 */
+
 		function update_field( $field ) {
 
 			return acf_get_field_type( 'radio' )->update_field( $field );
@@ -240,6 +242,7 @@ if ( ! class_exists( 'acf_field_button_group' ) ) :
 		 * @param   array $field   The field array holding all the field options
 		 * @return  $value
 		 */
+
 		function load_value( $value, $post_id, $field ) {
 
 			return acf_get_field_type( 'radio' )->load_value( $value, $post_id, $field );
@@ -255,6 +258,7 @@ if ( ! class_exists( 'acf_field_button_group' ) ) :
 		 * @param   array $field The field array holding all the field options
 		 * @return  $field
 		 */
+
 		function translate_field( $field ) {
 
 			return acf_get_field_type( 'radio' )->translate_field( $field );
@@ -272,6 +276,7 @@ if ( ! class_exists( 'acf_field_button_group' ) ) :
 		 * @param   array $field   The field array holding all the field options
 		 * @return  $value
 		 */
+
 		function format_value( $value, $post_id, $field ) {
 
 			return acf_get_field_type( 'radio' )->format_value( $value, $post_id, $field );

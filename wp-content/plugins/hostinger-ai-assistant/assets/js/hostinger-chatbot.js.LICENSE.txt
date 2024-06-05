@@ -59,7 +59,7 @@
  */
 
 /**
-* @vue/shared v3.4.27
+* @vue/shared v3.4.23
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
 **/

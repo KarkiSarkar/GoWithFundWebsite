@@ -119,7 +119,13 @@ class PayLaterWCBlocksRenderer {
 				$processor->set_attribute( 'data-pp-placement', esc_attr( $this->placement ) );
 			}
 
-			return $processor->get_updated_html();
+			$updated_html = $processor->get_updated_html();
+
+			return sprintf(
+				'<div %1$s>%2$s</div>',
+				wp_kses_data( get_block_wrapper_attributes() ),
+				$updated_html
+			);
 		}
 	}
 }

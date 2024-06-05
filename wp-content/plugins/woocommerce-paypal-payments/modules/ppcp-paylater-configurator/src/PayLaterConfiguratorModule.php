@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace WooCommerce\PayPalCommerce\PayLaterConfigurator;
 
 use WooCommerce\PayPalCommerce\Button\Helper\MessagesApply;
-use WooCommerce\PayPalCommerce\PayLaterConfigurator\Endpoint\GetConfig;
 use WooCommerce\PayPalCommerce\PayLaterConfigurator\Endpoint\SaveConfig;
 use WooCommerce\PayPalCommerce\PayLaterConfigurator\Factory\ConfigFactory;
 use WooCommerce\PayPalCommerce\Vendor\Dhii\Container\ServiceProvider;
@@ -28,7 +27,7 @@ class PayLaterConfiguratorModule implements ModuleInterface {
 	 */
 	public static function is_enabled(): bool {
 		return apply_filters(
-		// phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			// phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			'woocommerce.feature-flags.woocommerce_paypal_payments.paylater_configurator_enabled',
 			getenv( 'PCP_PAYLATER_CONFIGURATOR' ) !== '0'
 		);
@@ -65,15 +64,6 @@ class PayLaterConfiguratorModule implements ModuleInterface {
 			static function () use ( $c ) {
 				$endpoint = $c->get( 'paylater-configurator.endpoint.save-config' );
 				assert( $endpoint instanceof SaveConfig );
-				$endpoint->handle_request();
-			}
-		);
-
-		add_action(
-			'wc_ajax_' . GetConfig::ENDPOINT,
-			static function () use ( $c ) {
-				$endpoint = $c->get( 'paylater-configurator.endpoint.get-config' );
-				assert( $endpoint instanceof GetConfig );
 				$endpoint->handle_request();
 			}
 		);
@@ -121,10 +111,6 @@ class PayLaterConfiguratorModule implements ModuleInterface {
 							'save_config' => array(
 								'endpoint' => \WC_AJAX::get_endpoint( SaveConfig::ENDPOINT ),
 								'nonce'    => wp_create_nonce( SaveConfig::nonce() ),
-							),
-							'get_config'  => array(
-								'endpoint' => \WC_AJAX::get_endpoint( GetConfig::ENDPOINT ),
-								'nonce'    => wp_create_nonce( GetConfig::nonce() ),
 							),
 						),
 						'config'                 => $config_factory->from_settings( $settings ),

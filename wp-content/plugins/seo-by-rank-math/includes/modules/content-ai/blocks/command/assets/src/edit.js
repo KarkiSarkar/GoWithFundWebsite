@@ -12,10 +12,10 @@ import { __ } from '@wordpress/i18n'
 /**
  * Internal dependencies
  */
-import hasError from '../../../../assets/src/helpers/hasError'
+import hasError from '../../../../assets/src/page/helpers/hasError'
 
 const getErrorMessage = () => {
-	if ( ! rankMath.contentAI.isUserRegistered ) {
+	if ( ! rankMath.isUserRegistered ) {
 		return (
 			<>
 				{
@@ -26,7 +26,7 @@ const getErrorMessage = () => {
 		)
 	}
 
-	if ( ! rankMath.contentAI.plan ) {
+	if ( ! rankMath.contentAIPlan ) {
 		return (
 			<>
 				{

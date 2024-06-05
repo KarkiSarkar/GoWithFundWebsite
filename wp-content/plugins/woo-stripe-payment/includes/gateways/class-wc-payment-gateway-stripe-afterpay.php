@@ -30,6 +30,7 @@ class WC_Payment_Gateway_Stripe_Afterpay extends WC_Payment_Gateway_Stripe_Local
 		$this->method_description = __( 'Afterpay gateway that integrates with your Stripe account.', 'woo-stripe-payment' );
 		$this->icon               = stripe_wc()->assets_url( 'img/afterpay.svg' );
 		parent::__construct();
+		$this->template_name = 'afterpay.php';
 		add_filter( 'woocommerce_gateway_icon', array( $this, 'get_woocommerce_gateway_icon' ), 10, 2 );
 	}
 
@@ -96,7 +97,7 @@ class WC_Payment_Gateway_Stripe_Afterpay extends WC_Payment_Gateway_Stripe_Local
 					'mini_cart' => __( 'Mini Cart', 'woo-stripe-payment' ),
 					'shop'      => __( 'Shop/Category Page', 'woo-stripe-payment' )
 				),
-				'default'     => array(),
+				'default'     => array( 'product', 'cart', 'checkout' ),
 				'description' => __( 'These are the additional sections where the Afterpay messaging will be enabled. You can control individual products via the Edit product page.',
 					'woo-stripe-payment' ),
 			),
@@ -394,7 +395,7 @@ class WC_Payment_Gateway_Stripe_Afterpay extends WC_Payment_Gateway_Stripe_Local
 
 	public function enqueue_checkout_scripts( $scripts ) {
 		parent::enqueue_checkout_scripts( $scripts );
-		$scripts->assets_api->register_script( 'wc-stripe-afterpay-checkout', 'assets/build/afterpay-message.js', array( 'wc-stripe-vendors', 'wc-stripe-local-payment' ) );
+		$scripts->assets_api->register_script( 'wc-stripe-afterpay-checkout', 'assets/build/afterpay-message.js', array( 'wc-stripe-vendors' ) );
 		wp_enqueue_script( 'wc-stripe-afterpay-checkout' );
 	}
 

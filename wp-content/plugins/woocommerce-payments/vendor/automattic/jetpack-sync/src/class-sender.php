@@ -292,7 +292,6 @@ class Sender {
 	 */
 	public function do_full_sync() {
 		$sync_module = Modules::get_module( 'full-sync' );
-		'@phan-var Modules\Full_Sync_Immediately|Modules\Full_Sync $sync_module';
 		if ( ! $sync_module ) {
 			return;
 		}
@@ -314,7 +313,7 @@ class Sender {
 
 		$this->continue_full_sync_enqueue();
 		// immediate full sync sends data in continue_full_sync_enqueue.
-		if ( ! $sync_module instanceof Modules\Full_Sync_Immediately ) {
+		if ( ! str_contains( get_class( $sync_module ), 'Full_Sync_Immediately' ) ) {
 			return $this->do_sync_and_set_delays( $this->full_sync_queue );
 		} else {
 			$status = $sync_module->get_status();
@@ -343,9 +342,7 @@ class Sender {
 			return false;
 		}
 
-		$full_sync_module = Modules::get_module( 'full-sync' );
-		'@phan-var Modules\Full_Sync_Immediately|Modules\Full_Sync $full_sync_module';
-		$full_sync_module->continue_enqueuing();
+		Modules::get_module( 'full-sync' )->continue_enqueuing();
 
 		$this->set_next_sync_time( time() + $this->get_enqueue_wait_time(), 'full-sync-enqueue' );
 	}
@@ -394,7 +391,7 @@ class Sender {
 		 *
 		 * @see \Automattic\Jetpack\Sync\Dedicated_Sender::can_spawn_dedicated_sync_request
 		 */
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- This is just a constant string used for Validation.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo Dedicated_Sender::DEDICATED_SYNC_VALIDATION_STRING;
 
 		// Try to disconnect the request as quickly as possible and process things in the background.

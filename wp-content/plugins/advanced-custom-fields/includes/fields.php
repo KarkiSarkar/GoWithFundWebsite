@@ -22,31 +22,36 @@ if ( ! class_exists( 'acf_fields' ) ) :
 		 * @param   n/a
 		 * @return  n/a
 		 */
+
 		function __construct() {
 			/* do nothing */
 		}
 
-		/**
-		 * This function will register a field type instance based on a class name or instance.
-		 * It will return the instance for further use.
-		 *
-		 * @since 5.4.0
-		 *
-		 * @param   mixed $field_class Either a class name (string) or instance of acf_field.
-		 * @return  acf_field The instance of acf_field.
-		 */
-		public function register_field_type( $field_class ) {
-			// Allow registering an instance.
-			if ( $field_class instanceof acf_field ) {
-				$this->types[ $field_class->name ] = $field_class;
-				return $field_class;
-			}
 
-			// Allow registering a loaded class name.
-			$instance                       = new $field_class();
-			$this->types[ $instance->name ] = $instance;
-			return $instance;
+		/**
+		 * This function will register a field type instance
+		 *
+		 * @type    function
+		 * @date    6/07/2016
+		 * @since   5.4.0
+		 *
+		 * @param   $class (string)
+		 * @return  n/a
+		 */
+
+		function register_field_type( $class ) {
+
+			// allow instance
+			if ( $class instanceof acf_field ) {
+				$this->types[ $class->name ] = $class;
+
+				// allow class name
+			} else {
+				$instance                       = new $class();
+				$this->types[ $instance->name ] = $instance;
+			}
 		}
+
 
 		/**
 		 * This function will return a field type instance
@@ -58,6 +63,7 @@ if ( ! class_exists( 'acf_fields' ) ) :
 		 * @param   $name (string)
 		 * @return  (mixed)
 		 */
+
 		function get_field_type( $name ) {
 			return isset( $this->types[ $name ] ) ? $this->types[ $name ] : null;
 		}
@@ -73,6 +79,7 @@ if ( ! class_exists( 'acf_fields' ) ) :
 		 * @param   $name (string)
 		 * @return  (mixed)
 		 */
+
 		function is_field_type( $name ) {
 			return isset( $this->types[ $name ] );
 		}

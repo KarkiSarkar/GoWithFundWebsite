@@ -9,14 +9,10 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\OrderTracking;
 
-use Exception;
 use WC_Order;
 use WooCommerce\PayPalCommerce\OrderTracking\Endpoint\OrderTrackingEndpoint;
 use WooCommerce\PayPalCommerce\OrderTracking\Shipment\ShipmentInterface;
-use WooCommerce\PayPalCommerce\WcGateway\Processor\TransactionIdHandlingTrait;
 use WP_Post;
-
-use function WooCommerce\PayPalCommerce\Api\ppcp_get_paypal_order;
 
 /**
  * Class MetaBoxRenderer
@@ -28,8 +24,6 @@ use function WooCommerce\PayPalCommerce\Api\ppcp_get_paypal_order;
  * @psalm-type Carriers = array<CarrierType, Carrier>
  */
 class MetaBoxRenderer {
-
-	use TransactionIdHandlingTrait;
 
 	/**
 	 * Allowed shipping statuses.
@@ -93,13 +87,7 @@ class MetaBoxRenderer {
 			return;
 		}
 
-		$paypal_order = ppcp_get_paypal_order( $wc_order );
-		$capture_id   = $this->get_paypal_order_transaction_id( $paypal_order ) ?? '';
-
-		if ( ! $capture_id ) {
-			return;
-		}
-
+		$transaction_id   = $wc_order->get_transaction_id() ?: '';
 		$order_items      = $wc_order->get_items();
 		$order_item_count = ! empty( $order_items ) ? count( $order_items ) : 0;
 
@@ -114,8 +102,8 @@ class MetaBoxRenderer {
 			<div class="ppcp-tracking-column">
 				<h3><?php echo esc_html__( 'Share Package Tracking Data with PayPal', 'woocommerce-paypal-payments' ); ?></h3>
 				<p>
-					<label for="ppcp-tracking-capture_id"><?php echo esc_html__( 'Capture ID', 'woocommerce-paypal-payments' ); ?></label>
-					<input type="text" disabled class="ppcp-tracking-capture_id disabled" id="ppcp-tracking-capture_id" name="ppcp-tracking[capture_id]" value="<?php echo esc_attr( $capture_id ); ?>" />
+					<label for="ppcp-tracking-transaction_id"><?php echo esc_html__( 'Transaction ID', 'woocommerce-paypal-payments' ); ?></label>
+					<input type="text" disabled class="ppcp-tracking-transaction_id disabled" id="ppcp-tracking-transaction_id" name="ppcp-tracking[transaction_id]" value="<?php echo esc_attr( $transaction_id ); ?>" />
 				</p>
 				<?php if ( $order_item_count > 1 && $this->should_use_new_api ) : ?>
 					<p>
