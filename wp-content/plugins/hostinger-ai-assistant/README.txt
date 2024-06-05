@@ -1,13 +1,13 @@
 === Plugin Name ===
 Tags: AI, AI assistant
 Tested up to: 6.5
-Stable tag: 1.8.1
+Stable tag: 1.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Hostinger AI Assistant: Effortlessly create engaging content using AI. Streamline content generation for blogs, articles, and more.
+Hostinger AI: Effortlessly create engaging content using AI. Streamline content generation for blogs, articles, and more.
 
 == Installation ==
 
@@ -146,3 +146,9 @@ This section describes how to install the plugin and get it working.
 
 = 1.8.1 =
 - Chatbot improvements
+
+= 1.8.2 =
+- Security fix
+
+= 1.8.3 =
+- Rename plugin
