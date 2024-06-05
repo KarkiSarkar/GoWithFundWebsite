@@ -11,21 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 global $product;
 $posts_per_page = 5;
-$related = wc_get_related_products( $product->get_id(), $posts_per_page );
-
-if ( sizeof( $related ) == 0 ) return;
 
 $args = apply_filters( 'woocommerce_related_products_args', array(
 	'post_type'				=> 'product',
 	'ignore_sticky_posts'	=> 1,
 	'posts_per_page' 		=> $posts_per_page,
-	'post__in' 				=> $related,
-	'post__not_in'			=> array( $product->get_id() ),
-	'tax_query'				=> array(
-      'taxonomy' => 'product_type',
-      'field' => 'slug',
-      'terms' => 'crowdfunding',
-	)
 ) );
 $show = 3;
 $products = new WP_Query( $args );

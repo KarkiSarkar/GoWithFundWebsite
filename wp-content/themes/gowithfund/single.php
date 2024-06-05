@@ -84,7 +84,7 @@
     <?php do_action( 'krowd_after_page_content' ); ?>
     <div class="gva-content-items container">
         <div class="lg-block-grid-3 md-block-grid-3 sm-block-grid-2 xs-block-grid-1 xx-block-grid-1">
-            <h3>Related Posts</h3>
+            <h3 class="related_posts_title">Related Posts</h3>
             <?php 
                 $related_post = get_posts( array(
                     'post_type' => 'post',
