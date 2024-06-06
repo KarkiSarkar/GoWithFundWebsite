@@ -345,6 +345,7 @@ function custom_contact_form_shortcode() {
         <!--    </div>-->
         <!--</div>-->
         <input class="custom-theme-button" type="submit" name="submit" value="Submit">
+        <div id="error-container" style="color: red;"></div>
     </form>
     <style>
        
@@ -394,6 +395,117 @@ This following statements selects each category individually that contains an in
     </style>
   
    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if there are errors stored in sessionStorage
+    var storedErrors = sessionStorage.getItem('formErrors');
+    if (storedErrors) {
+        displayErrors(JSON.parse(storedErrors));
+        // Clear the stored errors after displaying them
+        sessionStorage.removeItem('formErrors');
+        // Scroll to the error container
+        document.getElementById('error-container').scrollIntoView();
+    }
+});
+
+document.getElementById('simple-form-ui').addEventListener('submit', function(event) {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var phoneNumber = document.getElementById('nuber').value;
+    var country = document.getElementById('country').value;
+    var message = document.getElementById('message').value;
+
+    var errors = [];
+
+    if (!name) {
+        errors.push("Please enter your name.");
+        document.getElementById('sfs_name').classList.add('error');
+    } else {
+        document.getElementById('sfs_name').classList.remove('error');
+    }
+
+    if (!email) {
+        errors.push("Please enter your email address.");
+        document.getElementById('sfs_email').classList.add('error');
+    } else if (!validateEmail(email)) {
+        errors.push("Please enter a valid email address.");
+        document.getElementById('sfs_email').classList.add('error');
+    } else {
+        document.getElementById('sfs_email').classList.remove('error');
+    }
+
+    if (!phoneNumber) {
+        errors.push("Please enter your phone number.");
+        document.getElementById('sfs_phonenumber').classList.add('error');
+    } else {
+        document.getElementById('sfs_phonenumber').classList.remove('error');
+    }
+
+    if (!country) {
+        errors.push("Please select your country.");
+        document.getElementById('country').classList.add('error');
+    } else {
+        document.getElementById('country').classList.remove('error');
+    }
+
+    if (!message) {
+        errors.push("Please enter your message.");
+        document.getElementById('sfs_message').classList.add('error');
+    } else {
+        document.getElementById('sfs_message').classList.remove('error');
+    }
+
+    if (errors.length > 0) {
+        event.preventDefault(); // Prevent form submission
+        // Store errors in sessionStorage
+        sessionStorage.setItem('formErrors', JSON.stringify(errors));
+        displayErrors(errors);
+        // Scroll to the error container
+        document.getElementById('error-container').scrollIntoView();
+    }
+});
+
+function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+function displayErrors(errors) {
+    var errorContainer = document.getElementById('error-container');
+    errorContainer.innerHTML = ''; // Clear previous errors
+
+    var errorList = document.createElement('ul');
+    errors.forEach(function(error) {
+        var listItem = document.createElement('li');
+        listItem.textContent = error;
+        errorList.appendChild(listItem);
+    });
+
+    errorContainer.appendChild(errorList);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         function toggleCheckboxes() {
             var investmentTypeSelect = document.getElementById("investmentType");
             var investmentType = investmentTypeSelect.options[investmentTypeSelect.selectedIndex].value;
