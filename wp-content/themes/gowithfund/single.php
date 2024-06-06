@@ -89,7 +89,8 @@
                 $related_post = get_posts( array(
                     'post_type' => 'post',
                     'posts_per_page' => 6,
-                    'post__not_in' => array()
+                    'post__not_in' => array(),
+                    'orderby' => 'rand'
                 ));
 
                 if($related_post){ 

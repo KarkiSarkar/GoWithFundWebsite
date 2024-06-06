@@ -243,15 +243,103 @@ function sfs_display_form() {
             <input type="submit" class="custom-theme-button" name="sfs_submit" value="Send">
         </p>
     </form>
-    <!-- <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId            : '484103824186469',
-      xfbml            : true,
-      version          : 'v20.0'
-    });
-  };
-</script> -->
+    <script>
+        // window.fbAsyncInit = function() {
+        //     FB.init({
+        //     appId            : '484103824186469',
+        //     xfbml            : true,
+        //     version          : 'v20.0'
+        //     });
+        // };
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if there are errors stored in sessionStorage
+            var storedErrors = sessionStorage.getItem('formErrors');
+            if (storedErrors) {
+                displayErrors(JSON.parse(storedErrors));
+                // Clear the stored errors after displaying them
+                sessionStorage.removeItem('formErrors');
+                // Scroll to the error container
+                document.getElementById('error-container').scrollIntoView();
+            }
+        });
+
+        document.getElementById('simple-form-ui').addEventListener('submit', function(event) {
+            var name = document.getElementById('sfs_name').value;
+            var email = document.getElementById('sfs_email').value;
+            var phoneNumber = document.getElementById('sfs_phonenumber').value;
+            var country = document.getElementById('country').value;
+            var message = document.getElementById('sfs_message').value;
+
+            var errors = [];
+
+            if (!name) {
+                errors.push("Please enter your name.");
+                document.getElementById('sfs_name').classList.add('error');
+            } else {
+                document.getElementById('sfs_name').classList.remove('error');
+            }
+
+            if (!email) {
+                errors.push("Please enter your email address.");
+                document.getElementById('sfs_email').classList.add('error');
+            } else if (!validateEmail(email)) {
+                errors.push("Please enter a valid email address.");
+                document.getElementById('sfs_email').classList.add('error');
+            } else {
+                document.getElementById('sfs_email').classList.remove('error');
+            }
+
+            if (!phoneNumber) {
+                errors.push("Please enter your phone number.");
+                document.getElementById('sfs_phonenumber').classList.add('error');
+            } else {
+                document.getElementById('sfs_phonenumber').classList.remove('error');
+            }
+
+            if (!country) {
+                errors.push("Please select your country.");
+                document.getElementById('country').classList.add('error');
+            } else {
+                document.getElementById('country').classList.remove('error');
+            }
+
+            if (!message) {
+                errors.push("Please enter your message.");
+                document.getElementById('sfs_message').classList.add('error');
+            } else {
+                document.getElementById('sfs_message').classList.remove('error');
+            }
+
+            if (errors.length > 0) {
+                event.preventDefault(); // Prevent form submission
+                // Store errors in sessionStorage
+                sessionStorage.setItem('formErrors', JSON.stringify(errors));
+                displayErrors(errors);
+                // Scroll to the error container
+                document.getElementById('error-container').scrollIntoView();
+            }
+        });
+
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+
+        function displayErrors(errors) {
+            var errorContainer = document.getElementById('error-container');
+            errorContainer.innerHTML = ''; // Clear previous errors
+
+            var errorList = document.createElement('ul');
+            errors.forEach(function(error) {
+                var listItem = document.createElement('li');
+                listItem.textContent = error;
+                errorList.appendChild(listItem);
+            });
+
+            errorContainer.appendChild(errorList);
+        }
+
+    </script>
 <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
     <script>
          document.getElementById('simple-form-ui').addEventListener('submit', function(event) {

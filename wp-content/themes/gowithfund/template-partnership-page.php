@@ -51,7 +51,6 @@ $key_feature = get_field('key_feature');
             <!-- </div> -->
             <?php if(!empty($key_feature)){?>
             <div class="page-content" style="padding-right: 10px;">
-            <h4>Key Feature</h4>
                 <p><?php the_field('key_feature');?></p>
             </div>
             <?php  } ?>
