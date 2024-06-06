@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-document.getElementById('simple-form-ui').addEventListener('submit', function(event) {
+document.getElementById('custom-contact-form').addEventListener('submit', function(event) {
     var name = document.getElementById('name').value;
     var email = document.getElementById('email').value;
     var phoneNumber = document.getElementById('nuber').value;
@@ -419,26 +419,26 @@ document.getElementById('simple-form-ui').addEventListener('submit', function(ev
 
     if (!name) {
         errors.push("Please enter your name.");
-        document.getElementById('sfs_name').classList.add('error');
+        document.getElementById('name').classList.add('error');
     } else {
-        document.getElementById('sfs_name').classList.remove('error');
+        document.getElementById('name').classList.remove('error');
     }
 
     if (!email) {
         errors.push("Please enter your email address.");
-        document.getElementById('sfs_email').classList.add('error');
+        document.getElementById('email').classList.add('error');
     } else if (!validateEmail(email)) {
         errors.push("Please enter a valid email address.");
-        document.getElementById('sfs_email').classList.add('error');
+        document.getElementById('email').classList.add('error');
     } else {
-        document.getElementById('sfs_email').classList.remove('error');
+        document.getElementById('email').classList.remove('error');
     }
 
     if (!phoneNumber) {
         errors.push("Please enter your phone number.");
-        document.getElementById('sfs_phonenumber').classList.add('error');
+        document.getElementById('nuber').classList.add('error');
     } else {
-        document.getElementById('sfs_phonenumber').classList.remove('error');
+        document.getElementById('nuber').classList.remove('error');
     }
 
     if (!country) {
@@ -450,9 +450,9 @@ document.getElementById('simple-form-ui').addEventListener('submit', function(ev
 
     if (!message) {
         errors.push("Please enter your message.");
-        document.getElementById('sfs_message').classList.add('error');
+        document.getElementById('message').classList.add('error');
     } else {
-        document.getElementById('sfs_message').classList.remove('error');
+        document.getElementById('message').classList.remove('error');
     }
 
     if (errors.length > 0) {
